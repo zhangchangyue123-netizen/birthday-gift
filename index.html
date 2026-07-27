@@ -1,1 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+
+    <meta name="apple-mobile-web-app-capable"
+        content="yes">
+
+    <meta name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent">
+
+    <meta name="theme-color"
+        content="#111111">
+
+    <title>Happy Birthday</title>
+
+    <!-- Font -->
+
+    <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Noto+Serif+SC:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="css/style.css">
+
+</head>
+
+<body>
+
+    <!-- =============================== -->
+    <!-- Canvas -->
+    <!-- =============================== -->
+
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Film Grain -->
+
+    <div class="film-grain"></div>
+
+    <!-- Light Leak -->
+
+    <div class="light-leak"></div>
+
+    <!-- =============================== -->
+    <!-- Loading -->
+    <!-- =============================== -->
+
+    <div id="loading">
+
+        <div class="loading-film">
+
+            <div class="loading-reel"></div>
+
+            <span>Loading Film...</span>
+
+        </div>
+
+    </div>
+
+    <!-- =============================== -->
+    <!-- Music -->
+    <!-- =============================== -->
+
+    <audio
+        id="bgm"
+        preload="auto"
+        loop>
+
+        <source
+            src="assets/music/happybirthday.mp3"
+            type="audio/mpeg">
+
+    </audio>
+
+    <!-- =============================== -->
+    <!-- Music Button -->
+    <!-- =============================== -->
+
+    <button
+        id="musicBtn">
+
+        ♫
+
+    </button>
+
+    <!-- =============================== -->
+    <!-- Main -->
+    <!-- =============================== -->
+
+    <main id="film">
+
+        <!-- ========================================= -->
+        <!-- Opening -->
+        <!-- ========================================= -->
+
+        <section class="opening">
+
+            <div class="opening-mask"></div>
+
+            <div class="projector-light"></div>
+
+            <div class="dust-layer"></div>
+
+            <div class="opening-center">
+
+                <div class="film-logo">
+
+                    <span class="film-small">
+                        FILM
+                    </span>
+
+                    <h1>
+
+                        DIARY
+
+                    </h1>
+
+                </div>
+
+                <p>
+
+                    Every frame has a reason to exist.
+
+                </p>
+
+            </div>
+
+            <div class="scroll-down">
+
+                <div class="mouse">
+
+                    <span></span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ========================================= -->
+        <!-- Film -->
+        <!-- ========================================= -->
+
+        <section
+            id="filmStrip">
+
+            <!-- Frame 01 -->
+
+            <article
+                class="frame active">
+
+                <div class="film-hole left"></div>
+
+                <div class="film-hole right"></div>
+
+                <div class="frame-image">
+
+                    <img
+                        src="assets/images/photo1.jpg"
+                        alt="photo">
+
+                </div>
+
+                <div class="frame-info">
+
+                    <span>
+
+                        FRAME 01
+
+                    </span>
+
+                    <small>
+
+                        2026.06.04
+
+                    </small>
+
+                </div>
+
+            </article>
+
+            <!-- Frame 02 -->
+
+            <article
+                class="frame">
+
+                <div class="film-hole left"></div>
+
+                <div class="film-hole right"></div>
+
+                <div class="frame-image">
+
+                    <img
+                        src="assets/images/photo2.jpg"
+                        alt="photo">
+
+                </div>
+
+                <div class="frame-info">
+
+                    <span>
+
+                        FRAME 02
+
+                    </span>
+
+                    <small>
+
+                        Summer
+
+                    </small>
+
+                </div>
+
+            </article>
+
+            <!-- Frame03 -->
+            <!-- ========================================= -->
+            <!-- Frame 03 -->
+            <!-- ========================================= -->
+
+            <article class="frame">
+
+                <div class="film-hole left"></div>
+                <div class="film-hole right"></div>
+
+                <div class="frame-image">
+
+                    <img
+                        src="assets/images/photo3.jpg"
+                        alt="photo">
+
+                </div>
+
+                <div class="frame-info">
+
+                    <span>FRAME 03</span>
+
+                    <small>
+                        Some moments don't need words.
+                    </small>
+
+                </div>
+
+            </article>
+
+            <!-- ========================================= -->
+            <!-- Frame 04 -->
+            <!-- ========================================= -->
+
+            <article class="frame">
+
+                <div class="film-hole left"></div>
+                <div class="film-hole right"></div>
+
+                <div class="frame-image">
+
+                    <img
+                        src="assets/images/photo4.jpg"
+                        alt="photo">
+
+                </div>
+
+                <div class="frame-info">
+
+                    <span>FRAME 04</span>
+
+                    <small>
+                        Light always remembers.
+                    </small>
+
+                </div>
+
+            </article>
+
+            <!-- ========================================= -->
+            <!-- Frame 05 -->
+            <!-- ========================================= -->
+
+            <article class="frame">
+
+                <div class="film-hole left"></div>
+                <div class="film-hole right"></div>
+
+                <div class="frame-image">
+
+                    <img
+                        src="assets/images/photo5.jpg"
+                        alt="photo">
+
+                </div>
+
+                <div class="frame-info">
+
+                    <span>FRAME 05</span>
+
+                    <small>
+                        Keep this frame.
+                    </small>
+
+                </div>
+
+            </article>
+
+            <!-- ========================================= -->
+            <!-- Frame 06 -->
+            <!-- ========================================= -->
+
+            <article class="frame birthday-frame">
+
+                <div class="film-hole left"></div>
+                <div class="film-hole right"></div>
+
+                <div class="frame-content birthday-content">
+
+                    <div class="birthday-background"></div>
+
+                    <div class="table">
+
+                        <div class="flower flower-left"></div>
+
+                        <div class="flower flower-right"></div>
+
+                        <div class="gift-box"></div>
+
+                        <div class="polaroid-group">
+
+                            <img src="assets/images/photo6.jpg" alt="">
+                            <img src="assets/images/photo7.jpg" alt="">
+
+                        </div>
+
+                        <!-- Cake -->
+
+                        <div class="cake">
+
+                            <div class="cake-shadow"></div>
+
+                            <div class="cake-layer layer-1"></div>
+
+                            <div class="cake-layer layer-2"></div>
+
+                            <div class="cake-layer layer-3"></div>
+
+                            <div class="cream"></div>
+
+                            <div class="strawberry s1"></div>
+                            <div class="strawberry s2"></div>
+                            <div class="strawberry s3"></div>
+
+                            <div class="candle">
+
+                                <div id="flame"
+                                     class="flame"></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="birthday-tip">
+
+                        <span>
+                            Tap the candle
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </section>
+
+        <!-- ========================================= -->
+        <!-- Film Indicator -->
+        <!-- ========================================= -->
+
+        <div class="film-indicator">
+
+            <span id="currentFrame">
+
+                01
+
+            </span>
+
+            <span class="line">
+
+                /
+
+            </span>
+
+            <span>
+
+                06
+
+            </span>
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- Film Progress -->
+        <!-- ========================================= -->
+
+        <div class="film-progress">
+
+            <div class="progress-track"></div>
+
+            <div class="progress-fill"></div>
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- Transition -->
+        <!-- ========================================= -->
+
+        <section id="transition">
+
+            <div class="film-light"></div>
+
+            <div class="grain-overlay"></div>
+
+        </section>
+
+        <!-- ========================================= -->
+        <!-- Scene 04（Part3继续） -->
+        <!-- ========================================= -->
+              <section id="memoryScene">
+
+            <div class="memory-title">
+
+                <span>MEMORIES</span>
+
+            </div>
+
+            <!-- 木桌 -->
+
+            <div class="memory-desk">
+
+                <!-- 拍立得 -->
+
+                <div class="desk-item polaroid p1">
+
+                    <img
+                        src="assets/images/photo8.jpg"
+                        alt="">
+
+                </div>
+
+                <div class="desk-item polaroid p2">
+
+                    <img
+                        src="assets/images/photo9.jpg"
+                        alt="">
+
+                </div>
+
+                <!-- 电影票 -->
+
+                <div class="desk-item ticket">
+
+                    <span>CINEMA</span>
+
+                </div>
+
+                <!-- 胶卷 -->
+
+                <div class="desk-item film-roll"></div>
+
+                <!-- 相机 -->
+
+                <div class="desk-item camera"></div>
+
+                <!-- 花 -->
+
+                <div class="desk-item tulip"></div>
+
+                <!-- 日记 -->
+
+                <div class="desk-item notebook">
+
+                    <div class="page"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ===================================== -->
+        <!-- Ending -->
+        <!-- ===================================== -->
+
+        <section id="ending">
+
+            <div class="ending-film">
+
+                <div class="film-ending-strip"></div>
+
+            </div>
+
+            <div class="ending-text">
+
+                <span>
+
+                    Happy Birthday
+
+                </span>
+
+            </div>
+
+            <div class="ending-light"></div>
+
+        </section>
+
+
+
+    </main>
+
+
+
+    <!-- ============================== -->
+    <!-- Overlay -->
+    <!-- ============================== -->
+
+    <div id="overlay"></div>
+
+
+
+    <!-- ============================== -->
+    <!-- Light Leak -->
+    <!-- ============================== -->
+
+    <div id="lightLeak"></div>
+
+
+
+    <!-- ============================== -->
+    <!-- Dust -->
+    <!-- ============================== -->
+
+    <div id="dustLayer"></div>
+
+
+
+    <!-- ============================== -->
+    <!-- Grain -->
+    <!-- ============================== -->
+
+    <div id="grainLayer"></div>
+
+
+
+    <!-- ============================== -->
+    <!-- Image Viewer -->
+    <!-- ============================== -->
+
+    <div id="viewer">
+
+        <div class="viewer-bg"></div>
+
+        <img
+            id="viewerImage"
+            src=""
+            alt="">
+
+        <button id="closeViewer">
+
+            ×
+
+        </button>
+
+    </div>
+
+
+
+    <!-- ============================== -->
+    <!-- JS -->
+    <!-- ============================== -->
+
+    <script src="js/main.js"></script>
+        <!-- ================================= -->
+    <!-- Film Shadow -->
+    <!-- ================================= -->
+
+    <div class="film-shadow"></div>
+
+    <!-- ================================= -->
+    <!-- Global Decoration -->
+    <!-- ================================= -->
+
+    <div class="global-light"></div>
+
+    <div class="global-vignette"></div>
+
+    <div class="noise-overlay"></div>
+
+    <!-- ================================= -->
+    <!-- Scroll Hint -->
+    <!-- ================================= -->
+
+    <div id="scrollHint">
+
+        <div class="scroll-line"></div>
+
+    </div>
+
+    <!-- ================================= -->
+    <!-- Preload Images -->
+    <!-- ================================= -->
+
+    <div class="preload">
+
+        <img src="assets/images/photo1.jpg" alt="">
+        <img src="assets/images/photo2.jpg" alt="">
+        <img src="assets/images/photo3.jpg" alt="">
+        <img src="assets/images/photo4.jpg" alt="">
+        <img src="assets/images/photo5.jpg" alt="">
+        <img src="assets/images/photo6.jpg" alt="">
+        <img src="assets/images/photo7.jpg" alt="">
+        <img src="assets/images/photo8.jpg" alt="">
+        <img src="assets/images/photo9.jpg" alt="">
+
+    </div>
+
+    <!-- ================================= -->
+    <!-- GSAP -->
+    <!-- ================================= -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js">
+    </script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js">
+    </script>
+
+    <!-- ================================= -->
+    <!-- Main -->
+    <!-- ================================= -->
+
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
