@@ -149,3 +149,52 @@ new IntersectionObserver(entries=>{
 });
 
 galleryObserver.observe(gallery);
+/*=========================
+    Scene06
+==========================*/
+
+const scene06 = document.querySelector("#scene06 img");
+
+const scene06Observer = new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            scene06.animate([
+
+                {
+
+                    opacity:0,
+
+                    transform:"scale(1.08)"
+
+                },
+
+                {
+
+                    opacity:1,
+
+                    transform:"scale(1)"
+
+                }
+
+            ],{
+
+                duration:1800,
+
+                fill:"forwards",
+
+                easing:"ease-out"
+
+            });
+
+        }
+
+    });
+
+},{
+    threshold:0.45
+});
+
+scene06Observer.observe(scene06);
