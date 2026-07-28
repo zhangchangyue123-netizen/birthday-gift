@@ -104,3 +104,48 @@ const coffeeObserver = new IntersectionObserver(entries=>{
 });
 
 coffeeObserver.observe(coffee);
+const gallery =
+document.querySelector(".gallery-card");
+
+const galleryObserver =
+new IntersectionObserver(entries=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            gallery.animate([
+
+                {
+
+                    opacity:0,
+
+                    transform:
+                    "translateY(80px) scale(.92)"
+
+                },
+
+                {
+
+                    opacity:1,
+
+                    transform:
+                    "translateY(0) scale(1)"
+
+                }
+
+            ],{
+
+                duration:1400,
+
+                easing:"ease"
+
+            });
+
+        }
+
+    });
+
+});
+
+galleryObserver.observe(gallery);
