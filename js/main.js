@@ -252,3 +252,60 @@ if(flame){
     });
 
 }
+/*==================================================
+                    Scene08
+==================================================*/
+
+const endingText = document.querySelector(".ending-text");
+
+const endingObserver = new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            endingText.animate(
+
+                [
+
+                    {
+
+                        opacity:0,
+
+                        transform:"translateY(20px)"
+
+                    },
+
+                    {
+
+                        opacity:1,
+
+                        transform:"translateY(0)"
+
+                    }
+
+                ],
+
+                {
+
+                    duration:1800,
+
+                    easing:"ease",
+
+                    fill:"forwards"
+
+                }
+
+            );
+
+        }
+
+    });
+
+},{
+
+    threshold:.45
+
+});
+
+endingObserver.observe(document.querySelector("#scene08"));
