@@ -459,3 +459,70 @@ body{
     letter-spacing:3px;
 
 }
+/* =========================
+   Scene04
+========================= */
+
+#scene04{
+
+    position:relative;
+
+    min-height:100vh;
+
+    background:#151515;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+}
+
+.coffee-light{
+
+    position:absolute;
+
+    width:500px;
+
+    height:500px;
+
+    border-radius:50%;
+
+    background:
+
+    radial-gradient(circle,
+    rgba(255,220,150,.25),
+    transparent 70%);
+
+    filter:blur(80px);
+
+}
+
+.coffee-frame{
+
+    z-index:2;
+
+}
+
+#scene04 .scene-text{
+
+    margin-top:40px;
+
+    width:80%;
+
+    max-width:320px;
+
+    text-align:center;
+
+    color:#ece4d3;
+
+    line-height:2;
+
+    letter-spacing:2px;
+
+}
