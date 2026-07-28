@@ -227,3 +227,162 @@ body{
     }
 
 }
+/* =========================
+   Scene02
+========================= */
+
+#scene02{
+
+    position:relative;
+
+    width:100%;
+
+    min-height:100vh;
+
+    background:#0f0f0f;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:80px 0;
+
+}
+
+/* 胶片 */
+
+.film-frame{
+
+    position:relative;
+
+    width:320px;
+
+    background:#181818;
+
+    padding:22px;
+
+    border-radius:10px;
+
+    box-shadow:
+
+        0 20px 50px rgba(0,0,0,.5);
+
+}
+
+/* 齿孔 */
+
+.film-hole{
+
+    position:absolute;
+
+    top:12px;
+
+    bottom:12px;
+
+    width:12px;
+
+    background:
+
+    repeating-linear-gradient(
+
+        to bottom,
+
+        transparent 0 10px,
+
+        white 10px 20px,
+
+        transparent 20px 30px
+
+    );
+
+    opacity:.8;
+
+}
+
+.left{
+
+    left:6px;
+
+}
+
+.right{
+
+    right:6px;
+
+}
+
+/* 图片 */
+
+.film-photo{
+
+    overflow:hidden;
+
+    border-radius:4px;
+
+}
+
+.film-photo img{
+
+    width:100%;
+
+    display:block;
+
+    opacity:0;
+
+    transform:scale(1.08);
+
+    transition:
+
+        opacity 1.4s ease,
+
+        transform 2s ease;
+
+}
+
+/* 显影 */
+
+.film-photo.show img{
+
+    opacity:1;
+
+    transform:scale(1);
+
+}
+
+/* 底部编号 */
+
+.film-info{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:#d8c49a;
+
+    font-size:11px;
+
+    letter-spacing:3px;
+
+    margin-top:14px;
+
+}
+
+/* 文字 */
+
+.scene-text{
+
+    margin-top:40px;
+
+    color:#d8d8d8;
+
+    font-size:16px;
+
+    letter-spacing:2px;
+
+    opacity:.85;
+
+}
