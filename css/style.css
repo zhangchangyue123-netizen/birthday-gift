@@ -1,1 +1,229 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#111;
+    overflow-x:hidden;
+    font-family:"Noto Serif SC",serif;
+}
+
+/* 第一幕 */
+
+#scene01{
+
+    position:relative;
+
+    width:100%;
+
+    height:100vh;
+
+    overflow:hidden;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+/* 木桌 */
+
+.desk{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+    linear-gradient(135deg,#5d4635,#3d2f25);
+
+}
+
+/* 投影光 */
+
+.projector-light{
+
+    position:absolute;
+
+    width:320px;
+
+    height:100vh;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    background:
+
+    linear-gradient(
+
+    to bottom,
+
+    rgba(255,255,255,.18),
+
+    transparent);
+
+    filter:blur(50px);
+
+}
+
+/* 暗角 */
+
+.vignette{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(
+
+    circle,
+
+    transparent 45%,
+
+    rgba(0,0,0,.78));
+
+}
+
+/* 拍立得 */
+
+.polaroid{
+
+    position:relative;
+
+    width:280px;
+
+    background:white;
+
+    padding:16px 16px 72px;
+
+    border-radius:4px;
+
+    box-shadow:
+
+    0 25px 60px rgba(0,0,0,.4);
+
+    transform:rotate(-3deg);
+
+    z-index:5;
+
+}
+
+.photo{
+
+    width:100%;
+
+    aspect-ratio:1;
+
+    overflow:hidden;
+
+}
+
+.photo img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+.photo-date{
+
+    margin-top:22px;
+
+    text-align:center;
+
+    color:#666;
+
+    letter-spacing:3px;
+
+    font-size:14px;
+
+}
+
+/* Frame */
+
+.frame-number{
+
+    position:absolute;
+
+    right:28px;
+
+    bottom:34px;
+
+    color:white;
+
+    letter-spacing:4px;
+
+    font-size:12px;
+
+    opacity:.8;
+
+}
+
+/* Scroll */
+
+.scroll{
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:28px;
+
+    transform:translateX(-50%);
+
+}
+
+.line{
+
+    width:2px;
+
+    height:48px;
+
+    background:white;
+
+    opacity:.45;
+
+    animation:move 2s infinite;
+
+}
+
+@keyframes move{
+
+    from{
+
+        transform:translateY(0);
+
+        opacity:0;
+
+    }
+
+    40%{
+
+        opacity:1;
+
+    }
+
+    to{
+
+        transform:translateY(18px);
+
+        opacity:0;
+
+    }
+
+}
