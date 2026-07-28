@@ -198,3 +198,57 @@ const scene06Observer = new IntersectionObserver((entries)=>{
 });
 
 scene06Observer.observe(scene06);
+/*=========================
+ Scene07
+==========================*/
+
+const flame = document.getElementById("flame");
+const wish = document.getElementById("wishText");
+
+if(flame){
+
+    flame.addEventListener("click",()=>{
+
+        flame.animate([
+
+            {opacity:1},
+
+            {opacity:0}
+
+        ],{
+
+            duration:900,
+
+            fill:"forwards"
+
+        });
+
+        setTimeout(()=>{
+
+            wish.innerHTML=`
+
+            <p>愿今天，</p>
+
+            <p>成为很多美好故事的开始。</p>
+
+            `;
+
+        },900);
+
+        setTimeout(()=>{
+
+            wish.innerHTML=`
+
+            <p>希望以后翻开的，</p>
+
+            <p>不只是今天的照片，</p>
+
+            <p>还有很多值得珍藏的日子。</p>
+
+            `;
+
+        },3400);
+
+    });
+
+}
