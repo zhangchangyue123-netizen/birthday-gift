@@ -83,3 +83,24 @@ document
     animate();
 
 });
+/* Scene04 */
+
+const coffee = document.querySelector("#scene04 .film-photo");
+
+const coffeeObserver = new IntersectionObserver(entries=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            coffee.classList.add("show");
+
+        }
+
+    });
+
+},{
+    threshold:0.4
+});
+
+coffeeObserver.observe(coffee);
