@@ -526,3 +526,108 @@ body{
     letter-spacing:2px;
 
 }
+/*=========================
+ Scene05
+==========================*/
+
+#scene05{
+
+    position:relative;
+
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#101010;
+
+    overflow:hidden;
+
+}
+
+/* 环境光 */
+
+.ambient-light{
+
+    position:absolute;
+
+    width:600px;
+
+    height:600px;
+
+    border-radius:50%;
+
+    background:
+
+    radial-gradient(circle,
+
+    rgba(255,182,193,.18),
+
+    transparent 70%);
+
+    filter:blur(90px);
+
+}
+
+/* 图片 */
+
+.gallery-card{
+
+    width:340px;
+
+    padding:18px;
+
+    background:white;
+
+    box-shadow:
+
+    0 35px 80px
+
+    rgba(0,0,0,.35);
+
+    z-index:2;
+
+}
+
+.gallery-card img{
+
+    width:100%;
+
+    display:block;
+
+}
+
+/* FRAME */
+
+.frame-id{
+
+    margin-top:42px;
+
+    letter-spacing:6px;
+
+    font-size:12px;
+
+    color:#d6c9c9;
+
+}
+
+/* 文案 */
+
+.caption{
+
+    margin-top:22px;
+
+    text-align:center;
+
+    line-height:2;
+
+    color:#b8b8b8;
+
+    font-size:15px;
+
+}
