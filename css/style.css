@@ -631,3 +631,177 @@ body{
     font-size:15px;
 
 }
+/*=========================
+    Scene06
+==========================*/
+
+#scene06{
+
+    position:relative;
+
+    width:100%;
+
+    height:100vh;
+
+    background:#000;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+}
+
+/* 宽银幕 */
+
+.cinema{
+
+    position:relative;
+
+    width:100%;
+
+    height:56%;
+
+    overflow:hidden;
+
+}
+
+/* 图片 */
+
+.cinema img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transform:scale(1);
+
+    animation:cinemaZoom 18s ease-in-out infinite alternate;
+
+}
+
+/* 电影黑边 */
+
+.cinema::before,
+.cinema::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    width:100%;
+
+    height:14%;
+
+    background:#000;
+
+    z-index:5;
+
+}
+
+.cinema::before{
+
+    top:0;
+
+}
+
+.cinema::after{
+
+    bottom:0;
+
+}
+
+/* 暗角 */
+
+.cinema-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(
+
+        circle,
+
+        transparent 50%,
+
+        rgba(0,0,0,.45)
+
+    );
+
+}
+
+/* 信息 */
+
+.scene06-info{
+
+    position:absolute;
+
+    left:30px;
+
+    right:30px;
+
+    bottom:110px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:#ffffff;
+
+    font-size:12px;
+
+    letter-spacing:4px;
+
+    opacity:.75;
+
+}
+
+/* 文案 */
+
+.scene06-text{
+
+    position:absolute;
+
+    bottom:55px;
+
+    width:100%;
+
+    text-align:center;
+
+    color:#dddddd;
+
+    font-size:15px;
+
+    letter-spacing:2px;
+
+    line-height:1.8;
+
+}
+
+/* 推镜 */
+
+@keyframes cinemaZoom{
+
+    from{
+
+        transform:scale(1);
+
+    }
+
+    to{
+
+        transform:scale(1.12);
+
+    }
+
+}
