@@ -48,3 +48,38 @@ document.querySelectorAll(".film-photo").forEach(item=>{
     observer.observe(item);
 
 });
+/* Scene03 呼吸动画 */
+
+document
+.querySelectorAll("#scene03 .film-photo img")
+.forEach(img=>{
+
+    let scale = 1;
+    let dir = 1;
+
+    function animate(){
+
+        scale += dir * 0.00015;
+
+        if(scale > 1.03){
+
+            dir = -1;
+
+        }
+
+        if(scale < 1){
+
+            dir = 1;
+
+        }
+
+        img.style.transform =
+        `scale(${scale})`;
+
+        requestAnimationFrame(animate);
+
+    }
+
+    animate();
+
+});
