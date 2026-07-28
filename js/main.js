@@ -25,6 +25,7 @@ function breathe(){
     requestAnimationFrame(breathe);
 
 }
+
 breathe();
 const observer = new IntersectionObserver((entries)=>{
 
