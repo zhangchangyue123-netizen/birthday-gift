@@ -978,3 +978,113 @@ transform:scale(1.2);
 
 
 }
+/* ===== FINAL DEBUG FIX ===== */
+
+
+.film-container{
+
+margin-left:320px !important;
+
+display:block !important;
+
+position:relative !important;
+
+width:calc(100% - 320px) !important;
+
+}
+
+
+
+.memory-frame{
+
+
+display:flex !important;
+
+position:relative !important;
+
+
+height:900px !important;
+
+
+opacity:1 !important;
+
+visibility:visible !important;
+
+
+transform:none !important;
+
+
+align-items:center;
+
+justify-content:center;
+
+
+flex-direction:column;
+
+
+}
+
+
+
+.photo-box{
+
+
+display:block !important;
+
+width:400px !important;
+
+height:500px !important;
+
+
+background:white;
+
+
+}
+
+
+
+.photo-box img{
+
+
+display:block !important;
+
+
+width:100% !important;
+
+height:100% !important;
+
+
+object-fit:cover;
+
+
+}
+
+
+
+.memory-text{
+
+
+display:block !important;
+
+opacity:1 !important;
+
+visibility:visible !important;
+
+
+color:white;
+
+
+}
+
+
+.film-number{
+
+
+display:block !important;
+
+color:white;
+
+
+}
+
+
