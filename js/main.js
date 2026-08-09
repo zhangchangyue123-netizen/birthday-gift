@@ -564,3 +564,101 @@ height:100%;
 document.head.appendChild(
 viewerStyle
 );
+/* =========================
+   音乐控制
+========================= */
+
+
+const music =
+document.getElementById(
+"bgMusic"
+);
+
+
+const musicBtn =
+document.getElementById(
+"musicBtn"
+);
+
+
+
+let playing=false;
+
+
+
+musicBtn.addEventListener(
+"click",
+()=>{
+
+
+if(!playing){
+
+
+music.play();
+
+
+musicBtn.innerHTML="🎶";
+
+
+playing=true;
+
+
+}
+
+else{
+
+
+music.pause();
+
+
+musicBtn.innerHTML="🎵";
+
+
+playing=false;
+
+
+}
+
+
+});
+
+
+
+
+
+/* =========================
+   蛋糕点击许愿
+========================= */
+
+
+const cake =
+document.querySelector(
+".cake-photo"
+);
+
+
+
+if(cake){
+
+
+cake.addEventListener(
+"click",
+()=>{
+
+
+const wish =
+document.querySelector(
+".wish"
+);
+
+
+
+wish.innerHTML=
+"✨ 愿你每天都开心 ✨";
+
+
+
+});
+
+
+}
