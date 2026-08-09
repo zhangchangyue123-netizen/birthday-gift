@@ -1,311 +1,566 @@
-const polaroid = document.querySelector(".polaroid");
+/* =====================================
+   MEMORY ALBUM
+   Film Roll Interaction
+   ===================================== */
 
-let scale = 1;
-let direction = 1;
 
-function breathe(){
+/* ==========================
+   页面加载
+========================== */
 
-    scale += direction * 0.00025;
 
-    if(scale > 1.02){
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
-        direction = -1;
 
-    }
+console.log(
+"Memory Album Loaded"
+);
 
-    if(scale < 1){
 
-        direction = 1;
 
-    }
+/* ==========================
+   滚动出现动画
+========================== */
 
-    polaroid.style.transform =
-    `rotate(-3deg) scale(${scale})`;
 
-    requestAnimationFrame(breathe);
+const frames =
+document.querySelectorAll(
+".memory-frame"
+);
+
+
+
+const observer =
+new IntersectionObserver(
+
+(entries)=>{
+
+
+entries.forEach(
+(entry)=>{
+
+
+if(entry.isIntersecting){
+
+
+entry.target.classList.add(
+"show"
+);
+
 
 }
 
-breathe();
-const observer = new IntersectionObserver((entries)=>{
-
-    entries.forEach(entry=>{
-
-        if(entry.isIntersecting){
-
-            entry.target.classList.add("show");
-
-        }
-
-    });
-
-},{
-    threshold:0.5
-});
-
-document.querySelectorAll(".film-photo").forEach(item=>{
-
-    observer.observe(item);
-
-});
-/* Scene03 呼吸动画 */
-
-document
-.querySelectorAll("#scene03 .film-photo img")
-.forEach(img=>{
-
-    let scale = 1;
-    let dir = 1;
-
-    function animate(){
-
-        scale += dir * 0.00015;
-
-        if(scale > 1.03){
-
-            dir = -1;
-
-        }
-
-        if(scale < 1){
-
-            dir = 1;
-
-        }
-
-        img.style.transform =
-        `scale(${scale})`;
-
-        requestAnimationFrame(animate);
-
-    }
-
-    animate();
-
-});
-/* Scene04 */
-
-const coffee = document.querySelector("#scene04 .film-photo");
-
-const coffeeObserver = new IntersectionObserver(entries=>{
-
-    entries.forEach(entry=>{
-
-        if(entry.isIntersecting){
-
-            coffee.classList.add("show");
-
-        }
-
-    });
-
-},{
-    threshold:0.4
-});
-
-coffeeObserver.observe(coffee);
-const gallery =
-document.querySelector(".gallery-card");
-
-const galleryObserver =
-new IntersectionObserver(entries=>{
-
-    entries.forEach(entry=>{
-
-        if(entry.isIntersecting){
-
-            gallery.animate([
-
-                {
-
-                    opacity:0,
-
-                    transform:
-                    "translateY(80px) scale(.92)"
-
-                },
-
-                {
-
-                    opacity:1,
-
-                    transform:
-                    "translateY(0) scale(1)"
-
-                }
-
-            ],{
-
-                duration:1400,
-
-                easing:"ease"
-
-            });
-
-        }
-
-    });
 
 });
 
-galleryObserver.observe(gallery);
-/*=========================
-    Scene06
-==========================*/
 
-const scene06 = document.querySelector("#scene06 img");
+},
 
-const scene06Observer = new IntersectionObserver((entries)=>{
+{
 
-    entries.forEach(entry=>{
 
-        if(entry.isIntersecting){
+threshold:0.25
 
-            scene06.animate([
-
-                {
-
-                    opacity:0,
-
-                    transform:"scale(1.08)"
-
-                },
-
-                {
-
-                    opacity:1,
-
-                    transform:"scale(1)"
-
-                }
-
-            ],{
-
-                duration:1800,
-
-                fill:"forwards",
-
-                easing:"ease-out"
-
-            });
-
-        }
-
-    });
-
-},{
-    threshold:0.45
-});
-
-scene06Observer.observe(scene06);
-/*=========================
- Scene07
-==========================*/
-
-const flame = document.getElementById("flame");
-const wish = document.getElementById("wishText");
-
-if(flame){
-
-    flame.addEventListener("click",()=>{
-
-        flame.animate([
-
-            {opacity:1},
-
-            {opacity:0}
-
-        ],{
-
-            duration:900,
-
-            fill:"forwards"
-
-        });
-
-        setTimeout(()=>{
-
-            wish.innerHTML=`
-
-            <p>愿今天，</p>
-
-            <p>成为很多美好故事的开始。</p>
-
-            `;
-
-        },900);
-
-        setTimeout(()=>{
-
-            wish.innerHTML=`
-
-            <p>希望以后翻开的，</p>
-
-            <p>不只是今天的照片，</p>
-
-            <p>还有很多值得珍藏的日子。</p>
-
-            `;
-
-        },3400);
-
-    });
 
 }
-/*==================================================
-                    Scene08
-==================================================*/
 
-const endingText = document.querySelector(".ending-text");
+);
 
-const endingObserver = new IntersectionObserver((entries)=>{
 
-    entries.forEach(entry=>{
 
-        if(entry.isIntersecting){
+frames.forEach(
+(frame)=>{
 
-            endingText.animate(
 
-                [
+observer.observe(frame);
 
-                    {
-
-                        opacity:0,
-
-                        transform:"translateY(20px)"
-
-                    },
-
-                    {
-
-                        opacity:1,
-
-                        transform:"translateY(0)"
-
-                    }
-
-                ],
-
-                {
-
-                    duration:1800,
-
-                    easing:"ease",
-
-                    fill:"forwards"
-
-                }
-
-            );
-
-        }
-
-    });
-
-},{
-
-    threshold:.45
 
 });
 
-endingObserver.observe(document.querySelector("#scene08"));
+
+
+
+
+
+/* ==========================
+   左侧导航跳转
+========================== */
+
+
+const navItems =
+document.querySelectorAll(
+".memory-sidebar nav a"
+);
+
+
+
+navItems.forEach(
+(item,index)=>{
+
+
+item.addEventListener(
+"click",
+()=>{
+
+
+const target =
+frames[index];
+
+
+if(target){
+
+
+target.scrollIntoView({
+
+behavior:"smooth",
+
+block:"center"
+
+});
+
+
+}
+
+
+});
+
+
+});
+
+
+
+
+
+
+/* ==========================
+   图片点击放大
+========================== */
+
+
+const photos =
+document.querySelectorAll(
+".photo-box img"
+);
+
+
+
+photos.forEach(
+(photo)=>{
+
+
+photo.addEventListener(
+"click",
+()=>{
+
+
+createViewer(photo.src);
+
+
+
+});
+
+
+});
+
+
+
+
+
+
+});
+
+
+
+
+
+
+
+/* ==========================
+   图片查看器
+========================== */
+
+
+function createViewer(src){
+
+
+
+const viewer =
+document.createElement(
+"div"
+);
+
+
+
+viewer.className =
+"photo-viewer";
+
+
+
+viewer.innerHTML = `
+
+<div class="viewer-bg">
+
+<img src="${src}">
+
+</div>
+
+`;
+
+
+
+document.body.appendChild(
+viewer
+);
+
+
+
+
+setTimeout(()=>{
+
+viewer.classList.add(
+"active"
+);
+
+
+},50);
+
+
+
+
+
+viewer.addEventListener(
+"click",
+()=>{
+
+
+viewer.classList.remove(
+"active"
+);
+
+
+
+setTimeout(()=>{
+
+
+viewer.remove();
+
+
+},500);
+
+
+
+});
+
+
+}
+
+
+
+
+
+/* ==========================
+   当前阅读位置
+========================== */
+
+
+window.addEventListener(
+"scroll",
+()=>{
+
+
+const frames =
+document.querySelectorAll(
+".memory-frame"
+);
+
+
+
+let current=0;
+
+
+
+frames.forEach(
+(frame,index)=>{
+
+
+const rect =
+frame.getBoundingClientRect();
+
+
+
+if(
+rect.top <
+window.innerHeight/2
+){
+
+
+current=index;
+
+
+}
+
+
+});
+
+
+
+const nav =
+document.querySelectorAll(
+".memory-sidebar nav a"
+);
+
+
+
+nav.forEach(
+(item,index)=>{
+
+
+if(index===current){
+
+
+item.style.color="#fff";
+
+
+item.style.transform=
+"translateX(8px)";
+
+
+}
+
+else{
+
+
+item.style.color="#777";
+
+
+item.style.transform=
+"translateX(0)";
+
+
+}
+
+
+
+});
+
+
+
+});
+
+
+
+
+
+
+
+
+/* ==========================
+   胶卷缓慢移动效果
+========================== */
+
+
+window.addEventListener(
+"scroll",
+()=>{
+
+
+const frames =
+document.querySelectorAll(
+".memory-frame"
+);
+
+
+
+frames.forEach(
+(frame)=>{
+
+
+const img =
+frame.querySelector(
+".photo-box"
+);
+
+
+
+if(!img)return;
+
+
+
+const distance =
+window.innerHeight/2 -
+frame.getBoundingClientRect().top;
+
+
+
+img.style.transform =
+
+`
+rotate(-2deg)
+translateY(${distance*0.03}px)
+`;
+
+
+
+});
+
+
+
+});
+
+
+
+
+
+
+
+/* ==========================
+   生日蛋糕特殊效果
+========================== */
+
+
+const cake =
+document.querySelector(
+".memory-frame:nth-child(7)"
+);
+
+
+
+if(cake){
+
+
+cake.addEventListener(
+"mouseenter",
+()=>{
+
+
+cake.style.filter =
+"brightness(1.08)";
+
+
+
+});
+
+
+cake.addEventListener(
+"mouseleave",
+()=>{
+
+
+cake.style.filter =
+"brightness(1)";
+
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+/* ==========================
+   添加查看器CSS
+========================== */
+
+
+const viewerStyle =
+document.createElement(
+"style"
+);
+
+
+
+viewerStyle.innerHTML = `
+
+
+.photo-viewer{
+
+position:fixed;
+
+inset:0;
+
+background:
+rgba(0,0,0,.9);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+opacity:0;
+
+transition:.5s;
+
+z-index:999;
+
+
+}
+
+
+
+.photo-viewer.active{
+
+opacity:1;
+
+}
+
+
+
+.photo-viewer img{
+
+max-width:90vw;
+
+max-height:85vh;
+
+box-shadow:
+0 40px 100px rgba(0,0,0,.8);
+
+transform:
+scale(.8);
+
+transition:.5s;
+
+
+}
+
+
+
+.photo-viewer.active img{
+
+transform:
+scale(1);
+
+}
+
+
+
+.viewer-bg{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+width:100%;
+
+height:100%;
+
+
+}
+
+
+`;
+
+
+
+document.head.appendChild(
+viewerStyle
+);
