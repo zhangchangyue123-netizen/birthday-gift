@@ -1,88 +1,549 @@
+/* =====================================
+   MEMORY ALBUM
+   Film Roll Photography Style
+   ===================================== */
+
+
+/* ---------- 基础 ---------- */
+
 *{
+
     margin:0;
+
     padding:0;
+
     box-sizing:border-box;
+
 }
+
 
 html{
+
     scroll-behavior:smooth;
+
 }
+
 
 body{
-    background:#111;
-    overflow-x:hidden;
-    font-family:"Noto Serif SC",serif;
-}
-
-/* 第一幕 */
-
-#scene01{
-
-    position:relative;
 
     width:100%;
 
-    height:100vh;
+    min-height:100vh;
 
-    overflow:hidden;
+    background:#090909;
 
-    display:flex;
+    color:#eee;
 
-    justify-content:center;
+    font-family:
 
-    align-items:center;
+    "Times New Roman",
+    "Noto Serif SC",
+    serif;
+
+    overflow-x:hidden;
 
 }
 
-/* 木桌 */
 
-.desk{
+/* 胶片颗粒 */
 
-    position:absolute;
+body::before{
+
+    content:"";
+
+    position:fixed;
 
     inset:0;
 
-    background:
+    pointer-events:none;
 
-    linear-gradient(135deg,#5d4635,#3d2f25);
+    opacity:.12;
+
+    z-index:10;
+
+    background-image:
+
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23noise)' opacity='.8'/%3E%3C/svg%3E");
 
 }
 
-/* 投影光 */
 
-.projector-light{
 
-    position:absolute;
+/* =====================================
+        左侧信息栏
+===================================== */
+
+
+.memory-sidebar{
+
+    position:fixed;
+
+    left:0;
+
+    top:0;
 
     width:320px;
 
     height:100vh;
 
-    left:50%;
-
-    transform:translateX(-50%);
+    padding:60px 45px;
 
     background:
 
     linear-gradient(
 
-    to bottom,
+    180deg,
 
-    rgba(255,255,255,.18),
+    #111,
 
-    transparent);
+    #050505
 
-    filter:blur(50px);
+    );
+
+    border-right:
+
+    1px solid rgba(255,255,255,.08);
+
+    z-index:5;
 
 }
 
-/* 暗角 */
 
-.vignette{
+
+.logo{
+
+
+    font-size:13px;
+
+    letter-spacing:8px;
+
+    color:#aaa;
+
+    line-height:1.8;
+
+}
+
+
+
+.memory-sidebar h1{
+
+
+    margin-top:50px;
+
+    font-size:38px;
+
+    font-weight:300;
+
+    line-height:1.5;
+
+    letter-spacing:5px;
+
+
+}
+
+
+
+.intro{
+
+
+    margin-top:40px;
+
+    color:#999;
+
+    font-size:14px;
+
+    letter-spacing:3px;
+
+    line-height:2.2;
+
+
+}
+
+
+
+.camera{
+
+
+    margin-top:45px;
+
+    font-size:28px;
+
+    opacity:.7;
+
+}
+
+
+
+.memory-sidebar nav{
+
+
+    margin-top:50px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+
+
+.memory-sidebar nav a{
+
+
+    color:#777;
+
+    font-size:13px;
+
+    letter-spacing:2px;
+
+    cursor:pointer;
+
+    transition:.4s;
+
+
+}
+
+
+.memory-sidebar nav a:hover{
+
+
+    color:white;
+
+    transform:translateX(8px);
+
+
+}
+
+
+
+
+
+/* =====================================
+        胶卷主体
+===================================== */
+
+
+.film-container{
+
+
+    margin-left:320px;
+
+    width:calc(100% - 320px);
+
+    padding:80px 80px;
+
+
+}
+
+
+
+
+/* =====================================
+        每一格回忆
+===================================== */
+
+
+.memory-frame{
+
+
+    min-height:100vh;
+
+    position:relative;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:80px 0;
+
+
+}
+
+
+
+
+/* 胶卷编号 */
+
+
+.film-number{
+
 
     position:absolute;
 
-    inset:0;
+    top:80px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+
+    font-size:12px;
+
+    letter-spacing:8px;
+
+    color:#666;
+
+
+}
+
+
+
+
+
+/* =====================================
+        胶卷孔洞效果
+===================================== */
+
+
+.memory-frame::before,
+.memory-frame::after{
+
+
+    content:"";
+
+
+    position:absolute;
+
+    top:0;
+
+    width:30px;
+
+    height:100%;
+
+
+    background:
+
+    repeating-linear-gradient(
+
+    to bottom,
+
+    transparent 0,
+
+    transparent 30px,
+
+    #050505 30px,
+
+    #050505 65px,
+
+    transparent 65px,
+
+    transparent 95px
+
+    );
+
+
+    opacity:.8;
+
+
+}
+
+
+
+.memory-frame::before{
+
+
+    left:-50px;
+
+}
+
+
+.memory-frame::after{
+
+
+    right:-50px;
+
+}
+
+
+
+
+
+
+
+/* =====================================
+        图片区域
+===================================== */
+
+
+.photo-box{
+
+
+    position:relative;
+
+
+    width:min(65vw,520px);
+
+
+    padding:18px;
+
+
+    background:#f4f1ea;
+
+
+    box-shadow:
+
+
+    0 40px 90px rgba(0,0,0,.7);
+
+
+    transform:
+
+    rotate(-2deg);
+
+
+    transition:.8s;
+
+
+
+}
+
+
+
+.photo-box:hover{
+
+
+    transform:
+
+    rotate(0deg)
+
+    scale(1.03);
+
+
+}
+
+
+
+
+
+.photo-box img{
+
+
+    display:block;
+
+    width:100%;
+
+    height:auto;
+
+
+    max-height:65vh;
+
+
+    object-fit:cover;
+
+
+}
+
+
+
+
+
+
+/* =====================================
+        文案
+===================================== */
+
+
+.memory-text{
+
+
+    margin-top:45px;
+
+    text-align:center;
+
+
+}
+
+
+
+.memory-text h2{
+
+
+    font-size:22px;
+
+    font-weight:400;
+
+    letter-spacing:8px;
+
+
+}
+
+
+
+.memory-text p{
+
+
+    margin-top:25px;
+
+    color:#aaa;
+
+    line-height:2.2;
+
+    font-size:15px;
+
+    letter-spacing:3px;
+
+
+}
+
+
+
+.memory-text span{
+
+
+    display:block;
+
+    margin-top:20px;
+
+    color:#666;
+
+    font-size:12px;
+
+    letter-spacing:4px;
+
+}
+
+
+
+
+
+/* =====================================
+        生日蛋糕
+===================================== */
+
+
+.memory-frame:nth-child(7)
+.photo-box{
+
+
+    box-shadow:
+
+
+    0 0 80px rgba(255,190,100,.25),
+
+    0 40px 90px rgba(0,0,0,.8);
+
+
+}
+
+
+
+
+
+
+
+/* =====================================
+        最后一页
+===================================== */
+
+
+.ending{
+
 
     background:
 
@@ -90,1056 +551,171 @@ body{
 
     circle,
 
-    transparent 45%,
+    rgba(255,255,255,.05),
 
-    rgba(0,0,0,.78));
-
-}
-
-/* 拍立得 */
-
-.polaroid{
-
-    position:relative;
-
-    width:280px;
-
-    background:white;
-
-    padding:16px 16px 72px;
-
-    border-radius:4px;
-
-    box-shadow:
-
-    0 25px 60px rgba(0,0,0,.4);
-
-    transform:rotate(-3deg);
-
-    z-index:5;
-
-}
-
-.photo{
-
-    width:100%;
-
-    aspect-ratio:1;
-
-    overflow:hidden;
-
-}
-
-.photo img{
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-
-}
-
-.photo-date{
-
-    margin-top:22px;
-
-    text-align:center;
-
-    color:#666;
-
-    letter-spacing:3px;
-
-    font-size:14px;
-
-}
-
-/* Frame */
-
-.frame-number{
-
-    position:absolute;
-
-    right:28px;
-
-    bottom:34px;
-
-    color:white;
-
-    letter-spacing:4px;
-
-    font-size:12px;
-
-    opacity:.8;
-
-}
-
-/* Scroll */
-
-.scroll{
-
-    position:absolute;
-
-    left:50%;
-
-    bottom:28px;
-
-    transform:translateX(-50%);
-
-}
-
-.line{
-
-    width:2px;
-
-    height:48px;
-
-    background:white;
-
-    opacity:.45;
-
-    animation:move 2s infinite;
-
-}
-
-@keyframes move{
-
-    from{
-
-        transform:translateY(0);
-
-        opacity:0;
-
-    }
-
-    40%{
-
-        opacity:1;
-
-    }
-
-    to{
-
-        transform:translateY(18px);
-
-        opacity:0;
-
-    }
-
-}
-/* =========================
-   Scene02
-========================= */
-
-#scene02{
-
-    position:relative;
-
-    width:100%;
-
-    min-height:100vh;
-
-    background:#0f0f0f;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    padding:80px 0;
-
-}
-
-/* 胶片 */
-
-.film-frame{
-
-    position:relative;
-
-    width:320px;
-
-    background:#181818;
-
-    padding:22px;
-
-    border-radius:10px;
-
-    box-shadow:
-
-        0 20px 50px rgba(0,0,0,.5);
-
-}
-
-/* 齿孔 */
-
-.film-hole{
-
-    position:absolute;
-
-    top:12px;
-
-    bottom:12px;
-
-    width:12px;
-
-    background:
-
-    repeating-linear-gradient(
-
-        to bottom,
-
-        transparent 0 10px,
-
-        white 10px 20px,
-
-        transparent 20px 30px
+    transparent
 
     );
 
-    opacity:.8;
 
 }
 
-.left{
 
-    left:6px;
 
-}
+.future-box{
 
-.right{
-
-    right:6px;
-
-}
-
-/* 图片 */
-
-.film-photo{
-
-    overflow:hidden;
-
-    border-radius:4px;
-
-}
-
-.film-photo img{
-
-    width:100%;
-
-    display:block;
-
-    opacity:0;
-
-    transform:scale(1.08);
-
-    transition:
-
-        opacity 1.4s ease,
-
-        transform 2s ease;
-
-}
-
-/* 显影 */
-
-.film-photo.show img{
-
-    opacity:1;
-
-    transform:scale(1);
-
-}
-
-/* 底部编号 */
-
-.film-info{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    color:#d8c49a;
-
-    font-size:11px;
-
-    letter-spacing:3px;
-
-    margin-top:14px;
-
-}
-
-/* 文字 */
-
-.scene-text{
-
-    margin-top:40px;
-
-    color:#d8d8d8;
-
-    font-size:16px;
-
-    letter-spacing:2px;
-
-    opacity:.85;
-
-}
-/* =========================
-   Scene03
-========================= */
-
-#scene03{
-
-    position:relative;
-
-    width:100%;
-
-    min-height:100vh;
-
-    background:#0c0c0c;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    overflow:hidden;
-
-}
-
-/* 漏光 */
-
-.light-leak{
-
-    position:absolute;
-
-    top:-120px;
-
-    left:-120px;
-
-    width:320px;
-
-    height:320px;
-
-    border-radius:50%;
-
-    background:
-
-    radial-gradient(
-
-        circle,
-
-        rgba(255,180,80,.28),
-
-        transparent 70%
-
-    );
-
-    filter:blur(60px);
-
-    opacity:.6;
-
-    pointer-events:none;
-
-}
-
-/* Scene03文字 */
-
-#scene03 .scene-text{
-
-    margin-top:40px;
-
-    color:#e0d7c5;
-
-    letter-spacing:3px;
-
-}
-/* =========================
-   Scene04
-========================= */
-
-#scene04{
-
-    position:relative;
-
-    min-height:100vh;
-
-    background:#151515;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    overflow:hidden;
-
-}
-
-.coffee-light{
-
-    position:absolute;
-
-    width:500px;
-
-    height:500px;
-
-    border-radius:50%;
-
-    background:
-
-    radial-gradient(circle,
-    rgba(255,220,150,.25),
-    transparent 70%);
-
-    filter:blur(80px);
-
-}
-
-.coffee-frame{
-
-    z-index:2;
-
-}
-
-#scene04 .scene-text{
-
-    margin-top:40px;
-
-    width:80%;
-
-    max-width:320px;
 
     text-align:center;
 
-    color:#ece4d3;
-
-    line-height:2;
-
-    letter-spacing:2px;
-
-}
-/*=========================
- Scene05
-==========================*/
-
-#scene05{
-
-    position:relative;
-
-    min-height:100vh;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    background:#101010;
-
-    overflow:hidden;
 
 }
 
-/* 环境光 */
 
-.ambient-light{
 
-    position:absolute;
+.future-box h2{
 
-    width:600px;
 
-    height:600px;
-
-    border-radius:50%;
-
-    background:
-
-    radial-gradient(circle,
-
-    rgba(255,182,193,.18),
-
-    transparent 70%);
-
-    filter:blur(90px);
-
-}
-
-/* 图片 */
-
-.gallery-card{
-
-    width:340px;
-
-    padding:18px;
-
-    background:white;
-
-    box-shadow:
-
-    0 35px 80px
-
-    rgba(0,0,0,.35);
-
-    z-index:2;
-
-}
-
-.gallery-card img{
-
-    width:100%;
-
-    display:block;
-
-}
-
-/* FRAME */
-
-.frame-id{
-
-    margin-top:42px;
-
-    letter-spacing:6px;
-
-    font-size:12px;
-
-    color:#d6c9c9;
-
-}
-
-/* 文案 */
-
-.caption{
-
-    margin-top:22px;
-
-    text-align:center;
-
-    line-height:2;
-
-    color:#b8b8b8;
-
-    font-size:15px;
-
-}
-/*=========================
-    Scene06
-==========================*/
-
-#scene06{
-
-    position:relative;
-
-    width:100%;
-
-    height:100vh;
-
-    background:#000;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    overflow:hidden;
-
-}
-
-/* 宽银幕 */
-
-.cinema{
-
-    position:relative;
-
-    width:100%;
-
-    height:56%;
-
-    overflow:hidden;
-
-}
-
-/* 图片 */
-
-.cinema img{
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-
-    transform:scale(1);
-
-    animation:cinemaZoom 18s ease-in-out infinite alternate;
-
-}
-
-/* 电影黑边 */
-
-.cinema::before,
-.cinema::after{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-
-    width:100%;
-
-    height:14%;
-
-    background:#000;
-
-    z-index:5;
-
-}
-
-.cinema::before{
-
-    top:0;
-
-}
-
-.cinema::after{
-
-    bottom:0;
-
-}
-
-/* 暗角 */
-
-.cinema-overlay{
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-
-    radial-gradient(
-
-        circle,
-
-        transparent 50%,
-
-        rgba(0,0,0,.45)
-
-    );
-
-}
-
-/* 信息 */
-
-.scene06-info{
-
-    position:absolute;
-
-    left:30px;
-
-    right:30px;
-
-    bottom:110px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    color:#ffffff;
-
-    font-size:12px;
-
-    letter-spacing:4px;
-
-    opacity:.75;
-
-}
-
-/* 文案 */
-
-.scene06-text{
-
-    position:absolute;
-
-    bottom:55px;
-
-    width:100%;
-
-    text-align:center;
-
-    color:#dddddd;
-
-    font-size:15px;
-
-    letter-spacing:2px;
-
-    line-height:1.8;
-
-}
-
-/* 推镜 */
-
-@keyframes cinemaZoom{
-
-    from{
-
-        transform:scale(1);
-
-    }
-
-    to{
-
-        transform:scale(1.12);
-
-    }
-
-}
-/*=========================
- Scene07
-==========================*/
-
-#scene07{
-
-    position:relative;
-
-    min-height:100vh;
-
-    background:#0b0b0b;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    overflow:hidden;
-
-}
-
-/* 暖光 */
-
-.cake-glow{
-
-    position:absolute;
-
-    width:520px;
-
-    height:520px;
-
-    border-radius:50%;
-
-    background:
-
-    radial-gradient(circle,
-
-    rgba(255,210,120,.22),
-
-    transparent 72%);
-
-    filter:blur(90px);
-
-}
-
-/* 蛋糕 */
-
-.cake-stage{
-
-    position:relative;
-
-    width:320px;
-
-    z-index:2;
-
-}
-
-.cake-image{
-
-    width:100%;
-
-    display:block;
-
-    border-radius:18px;
-
-    box-shadow:
-
-    0 30px 90px rgba(0,0,0,.5);
-
-}
-
-/* 蜡烛 */
-
-#candle{
-
-    position:absolute;
-
-    top:-18px;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    width:6px;
-
-    height:34px;
-
-    background:#fff5df;
-
-}
-
-#flame{
-
-    position:absolute;
-
-    left:50%;
-
-    top:-16px;
-
-    transform:translateX(-50%);
-
-    width:12px;
-
-    height:18px;
-
-    border-radius:50%;
-
-    background:
-
-    linear-gradient(#ffe17d,#ff7b00);
-
-    animation:flameMove 1.2s infinite alternate;
-
-}
-
-@keyframes flameMove{
-
-    from{
-
-        transform:
-        translateX(-50%)
-        rotate(-2deg)
-        scale(1);
-
-    }
-
-    to{
-
-        transform:
-        translateX(-50%)
-        rotate(2deg)
-        scale(1.08);
-
-    }
-
-}
-
-/* 标题 */
-
-.scene07-title{
-
-    margin-top:48px;
-
-    color:#e8dcc9;
-
-    text-align:center;
-
-    letter-spacing:5px;
-
-    font-size:12px;
-
-}
-
-.scene07-title span{
-
-    display:block;
-
-    margin-top:12px;
-
-    font-size:18px;
-
-    letter-spacing:6px;
-
-}
-
-/* 文案 */
-
-#wishText{
-
-    margin-top:42px;
-
-    text-align:center;
-
-    color:#ece7de;
-
-    line-height:2.2;
-
-    letter-spacing:2px;
-
-    transition:.8s;
-
-}
-/*==================================================
-                    Scene08
-==================================================*/
-
-.ending-scene{
-
-    position:relative;
-
-    width:100%;
-
-    min-height:100vh;
-
-    overflow:hidden;
-
-    background:#F7F5F1;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-}
-
-/* 柔和环境光 */
-
-.paper-light{
-
-    position:absolute;
-
-    width:650px;
-
-    height:650px;
-
-    border-radius:50%;
-
-    background:
-
-    radial-gradient(
-
-        circle,
-
-        rgba(255,255,255,.85),
-
-        rgba(255,255,255,0)
-
-    );
-
-    filter:blur(80px);
-
-}
-
-/* 相框 */
-
-.empty-frame{
-
-    width:260px;
-
-    aspect-ratio:4/5;
-
-    background:#faf9f6;
-
-    border:1px solid rgba(0,0,0,.08);
-
-    border-radius:6px;
-
-    padding:16px;
-
-    box-shadow:
-
-        0 16px 50px rgba(0,0,0,.06);
-
-    animation:
-
-        frameFloat 5s ease-in-out infinite;
-
-    z-index:2;
-
-}
-
-/* 内框 */
-
-.frame-inner{
-
-    width:100%;
-
-    height:100%;
-
-    border:1px dashed rgba(0,0,0,.08);
-
-    background:
-
-    linear-gradient(
-
-        135deg,
-
-        rgba(255,255,255,.75),
-
-        rgba(245,243,239,.95)
-
-    );
-
-}
-
-/* 文案 */
-
-.ending-text{
-
-    margin-top:70px;
-
-    text-align:center;
-
-    color:#746E67;
-
-    font-size:20px;
+    font-size:32px;
 
     font-weight:300;
 
-    letter-spacing:3px;
+    letter-spacing:10px;
 
-    line-height:2.1;
-
-    opacity:0;
-
-    transform:translateY(18px);
 
 }
 
-/* 漂浮 */
 
-@keyframes frameFloat{
 
-    0%{
+.future-box p{
 
-        transform:translateY(0);
 
-    }
+    margin-top:40px;
 
-    50%{
+    color:#aaa;
 
-        transform:translateY(-8px);
+    line-height:2;
 
-    }
+    letter-spacing:3px;
 
-    100%{
 
-        transform:translateY(0);
+}
 
-    }
+
+
+
+
+/* =====================================
+        动画准备
+===================================== */
+
+
+.memory-frame{
+
+
+    opacity:0;
+
+    transform:translateY(60px);
+
+
+    transition:
+
+    opacity 1.2s ease,
+
+    transform 1.2s ease;
+
+
+}
+
+
+
+.memory-frame.show{
+
+
+    opacity:1;
+
+    transform:translateY(0);
+
+
+}
+
+
+
+
+
+/* =====================================
+        手机适配
+===================================== */
+
+
+@media(max-width:900px){
+
+
+.memory-sidebar{
+
+
+    position:relative;
+
+    width:100%;
+
+    height:auto;
+
+    padding:40px 25px;
+
+
+}
+
+
+
+.memory-sidebar h1{
+
+
+    font-size:30px;
+
+
+}
+
+
+.memory-sidebar nav{
+
+
+    display:none;
+
+}
+
+
+
+.film-container{
+
+
+    margin-left:0;
+
+    width:100%;
+
+    padding:40px 20px;
+
+
+}
+
+
+
+.photo-box{
+
+
+    width:85vw;
+
+
+}
+
+
+
+.memory-frame::before,
+.memory-frame::after{
+
+
+    display:none;
+
+
+}
+
 
 }
