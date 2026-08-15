@@ -2,632 +2,1017 @@
 <html lang="zh-CN">
 
 <head>
+    <meta charset="UTF-8">
 
-<meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="theme-color"
+        content="#090909"
+    >
 
-<title>
-属于我们的回忆录
-</title>
+    <title>属于我们的回忆录</title>
 
-
-<link rel="stylesheet" href="./css/style.css">
-
-
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
 </head>
-
 
 <body>
 
+<!-- =========================================================
+     PAGE LOADER
+========================================================= -->
 
-<!-- ======================
-     背景音乐
-====================== -->
+<div
+    id="pageLoader"
+    class="page-loader"
+>
+
+    <div class="loader-inner">
+
+        <div class="loader-title">
+            MEMORY
+        </div>
+
+        <div class="loader-line">
+            <span id="loaderProgress"></span>
+        </div>
+
+        <div class="loader-subtitle">
+            LOADING OUR MEMORIES
+        </div>
+
+    </div>
+
+</div>
 
 
-<audio id="bgMusic" loop>
+<!-- =========================================================
+     FILM GRAIN
+========================================================= -->
 
-<source src="./assets/music/happy-birthday.mp3" type="audio/mpeg">
+<div
+    class="film-grain"
+    aria-hidden="true"
+></div>
+
+
+<!-- =========================================================
+     TOP LABEL
+========================================================= -->
+
+<div class="top-label">
+
+    <span>PRIVATE MEMORY ARCHIVE</span>
+
+    <span id="sceneCounter">
+        01 / 08
+    </span>
+
+</div>
+
+
+<!-- =========================================================
+     MUSIC
+========================================================= -->
+
+<audio
+    id="bgMusic"
+    preload="auto"
+    loop
+>
+
+    <source
+        src="./assets/music/love-memory.mp3"
+        type="audio/mpeg"
+    >
 
 </audio>
 
 
-<button id="musicBtn">
+<!-- =========================================================
+     MUSIC BUTTON
+========================================================= -->
 
-🎵
+<button
+    id="musicButton"
+    class="music-button"
+    type="button"
+    aria-label="播放音乐"
+>
+
+    <span class="music-icon">♪</span>
+
+    <span class="music-text">
+        MUSIC
+    </span>
 
 </button>
 
 
+<!-- =========================================================
+     MAIN
+========================================================= -->
 
+<main class="album">
 
 
-<!-- ======================
-     左侧目录
-====================== -->
+    <!-- =====================================================
+         LEFT SIDEBAR
+    ====================================================== -->
 
+    <aside class="sidebar">
 
-<aside class="memory-sidebar">
+        <div class="sidebar-top">
 
+            <div class="brand">
 
-<div class="logo">
+                <span>MEMORY</span>
+                <span>ALBUM</span>
 
-MEMORY
-<br>
-ALBUM
+            </div>
 
-</div>
 
+            <div class="title-block">
 
+                <h1>
+                    属于我们的
+                    <br>
+                    回忆录
+                    <span>♡</span>
+                </h1>
 
-<h1>
+                <p>
+                    Every moment
+                    <br>
+                    with you
+                    <br>
+                    is worth
+                    <br>
+                    remembering.
+                </p>
 
-属于我们的<br>
-回忆录 ♡
+            </div>
 
-</h1>
 
+            <div class="camera-mark">
 
+                <span class="camera-body"></span>
+                <span class="camera-lens"></span>
 
-<p class="intro">
+            </div>
 
-Every moment
-<br>
-with you
-<br>
-is worth
-<br>
-remembering.
+        </div>
 
-</p>
 
+        <!-- =============================================
+             NAVIGATION
+        ============================================== -->
 
+        <nav
+            class="memory-navigation"
+            aria-label="回忆导航"
+        >
 
-<div class="camera">
+            <button
+                class="memory-nav-item active"
+                data-scene="0"
+                type="button"
+            >
 
-📷
+                <span class="nav-number">01</span>
 
-</div>
+                <span class="nav-name">
+                    FIRST MEMORY
+                </span>
 
+            </button>
 
 
+            <button
+                class="memory-nav-item"
+                data-scene="1"
+                type="button"
+            >
 
-<nav>
+                <span class="nav-number">02</span>
 
-<a>01 First Memory</a>
+                <span class="nav-name">
+                    ON THE WAY
+                </span>
 
-<a>02 On The Way</a>
+            </button>
 
-<a>03 City Bus</a>
 
-<a>04 Coffee Time</a>
+            <button
+                class="memory-nav-item"
+                data-scene="2"
+                type="button"
+            >
 
-<a>05 Pink Moment</a>
+                <span class="nav-number">03</span>
 
-<a>06 Shanghai</a>
+                <span class="nav-name">
+                    CITY BUS
+                </span>
 
-<a>07 Make A Wish</a>
+            </button>
 
-<a>08 To Be Continued</a>
 
-</nav>
+            <button
+                class="memory-nav-item"
+                data-scene="3"
+                type="button"
+            >
 
+                <span class="nav-number">04</span>
 
+                <span class="nav-name">
+                    COFFEE TIME
+                </span>
 
-</aside>
+            </button>
 
 
+            <button
+                class="memory-nav-item"
+                data-scene="4"
+                type="button"
+            >
 
+                <span class="nav-number">05</span>
 
+                <span class="nav-name">
+                    PINK MOMENT
+                </span>
 
+            </button>
 
 
+            <button
+                class="memory-nav-item"
+                data-scene="5"
+                type="button"
+            >
 
-<!-- ======================
-     胶卷主体
-====================== -->
+                <span class="nav-number">06</span>
 
+                <span class="nav-name">
+                    SHANGHAI
+                </span>
 
-<main class="film-container">
+            </button>
 
 
+            <button
+                class="memory-nav-item"
+                data-scene="6"
+                type="button"
+            >
 
+                <span class="nav-number">07</span>
 
+                <span class="nav-name">
+                    MAKE A WISH
+                </span>
 
-<!-- FRAME 01 -->
+            </button>
 
-<section class="memory-frame">
 
+            <button
+                class="memory-nav-item"
+                data-scene="7"
+                type="button"
+            >
 
-<div class="film-number">
+                <span class="nav-number">08</span>
 
-01
+                <span class="nav-name">
+                    TO BE CONTINUED
+                </span>
 
-</div>
+            </button>
 
+        </nav>
 
 
-<div class="photo-box">
+        <!-- =============================================
+             SIDEBAR BOTTOM
+        ============================================== -->
 
+        <div class="sidebar-bottom">
 
-<img src="./assets/images/photo1.jpg">
+            <div>
+                EST.
+                <span>06 · 04</span>
+            </div>
 
+            <div>
+                PRESENT
+                <span>08 · 20</span>
+            </div>
 
-</div>
+        </div>
 
+    </aside>
 
 
-<div class="memory-text">
 
+    <!-- =====================================================
+         CONTENT
+    ====================================================== -->
 
-<h2>
+    <section class="content">
 
-FIRST MEMORY
+        <!-- =============================================
+             FILM PERFORATIONS
+        ============================================== -->
 
-</h2>
+        <div
+            class="film-perforations film-perforations-left"
+            aria-hidden="true"
+        ></div>
 
+        <div
+            class="film-perforations film-perforations-right"
+            aria-hidden="true"
+        ></div>
 
 
-<p>
+        <!-- =============================================
+             FILM TRACK
+        ============================================== -->
 
-故事的开始，
-<br>
-藏在第一次记录里。
+        <div
+            id="filmTrack"
+            class="film-track"
+        >
 
-</p>
 
+            <!-- =================================================
+                 SCENE 01
+            ================================================== -->
 
+            <section
+                class="memory-scene active"
+                data-index="0"
+            >
 
-<span>
+                <div class="scene-inner">
 
-May 03, 2025
+                    <div class="scene-meta">
 
-</span>
+                        <span>FRAME 01</span>
 
+                        <span>35MM</span>
 
-</div>
+                    </div>
 
 
+                    <div class="photo-composition">
 
-</section>
+                        <div class="photo-shadow"></div>
 
+                        <figure
+                            class="photo-card photo-card-main"
+                        >
 
+                            <div class="photo-number">
+                                01
+                            </div>
 
+                            <img
+                                src="./assets/images/photo1.jpg"
+                                alt="我们的第一张照片"
+                                draggable="false"
+                            >
 
+                            <figcaption>
+                                FIRST MEMORY
+                            </figcaption>
 
+                        </figure>
 
+                    </div>
 
 
-<!-- FRAME 02 -->
+                    <div class="scene-copy">
 
-<section class="memory-frame">
+                        <span class="copy-index">
+                            01 / FIRST MEMORY
+                        </span>
 
+                        <h2>
+                            故事，
+                            <br>
+                            从这一刻开始。
+                        </h2>
 
-<div class="film-number">
+                        <p>
+                            有些相遇从来都不是偶然。
+                            <br>
+                            只是那时候的我们，
+                            还不知道这会成为一段故事的开始。
+                        </p>
 
-02
+                    </div>
 
-</div>
+                </div>
 
+            </section>
 
 
-<div class="photo-box">
 
+            <!-- =================================================
+                 SCENE 02
+            ================================================== -->
 
-<img src="./assets/images/photo2.jpg">
+            <section
+                class="memory-scene"
+                data-index="1"
+            >
 
+                <div class="scene-inner">
 
-</div>
+                    <div class="scene-meta">
 
+                        <span>FRAME 02</span>
 
+                        <span>35MM</span>
 
-<div class="memory-text">
+                    </div>
 
 
-<h2>
+                    <div class="photo-composition">
 
-ON THE WAY
+                        <div class="photo-shadow"></div>
 
-</h2>
+                        <figure
+                            class="photo-card photo-card-main tilt-left"
+                        >
 
+                            <div class="photo-number">
+                                02
+                            </div>
 
+                            <img
+                                src="./assets/images/photo2.jpg"
+                                alt="回忆照片二"
+                                draggable="false"
+                            >
 
-<p>
+                            <figcaption>
+                                ON THE WAY
+                            </figcaption>
 
-一起走过的路，
-<br>
-后来都变成了回忆。
+                        </figure>
 
-</p>
+                    </div>
 
 
-</div>
+                    <div class="scene-copy">
 
+                        <span class="copy-index">
+                            02 / ON THE WAY
+                        </span>
 
-</section>
+                        <h2>
+                            有些光，
+                            <br>
+                            不需要刻意寻找。
+                        </h2>
 
+                        <p>
+                            路上的风景，
+                            <br>
+                            也值得被好好记住。
+                        </p>
 
+                    </div>
 
+                </div>
 
+            </section>
 
 
 
+            <!-- =================================================
+                 SCENE 03
+            ================================================== -->
 
-<!-- FRAME 03 -->
+            <section
+                class="memory-scene"
+                data-index="2"
+            >
 
-<section class="memory-frame">
+                <div class="scene-inner">
 
+                    <div class="scene-meta">
 
-<div class="film-number">
+                        <span>FRAME 03</span>
 
-03
+                        <span>KODAK 200</span>
 
-</div>
+                    </div>
 
 
-<div class="photo-box">
+                    <div class="photo-composition">
 
+                        <div class="photo-shadow"></div>
 
-<img src="./assets/images/photo3.jpg">
+                        <figure
+                            class="photo-card photo-card-main tilt-right"
+                        >
 
+                            <div class="photo-number">
+                                03
+                            </div>
 
-</div>
+                            <img
+                                src="./assets/images/photo3.jpg"
+                                alt="城市公交照片"
+                                draggable="false"
+                            >
 
+                            <figcaption>
+                                CITY BUS
+                            </figcaption>
 
+                        </figure>
 
-<div class="memory-text">
+                    </div>
 
 
-<h2>
+                    <div class="scene-copy">
 
-CITY BUS
+                        <span class="copy-index">
+                            03 / CITY BUS
+                        </span>
 
-</h2>
+                        <h2>
+                            城市很大，
+                            <br>
+                            我们刚好遇见。
+                        </h2>
 
+                        <p>
+                            普通的一天，
+                            <br>
+                            因为身边的人，
+                            变得特别。
+                        </p>
 
-<p>
+                    </div>
 
-普通的一天，
-<br>
-因为有你变得特别。
+                </div>
 
-</p>
+            </section>
 
 
 
-</div>
+            <!-- =================================================
+                 SCENE 04
+            ================================================== -->
 
+            <section
+                class="memory-scene"
+                data-index="3"
+            >
 
-</section>
+                <div class="scene-inner">
 
+                    <div class="scene-meta">
 
+                        <span>FRAME 04</span>
 
+                        <span>COFFEE</span>
 
+                    </div>
 
 
+                    <div class="photo-composition">
 
+                        <div class="photo-shadow"></div>
 
-<!-- FRAME 04 -->
+                        <figure
+                            class="photo-card photo-card-main"
+                        >
 
-<section class="memory-frame">
+                            <div class="photo-number">
+                                04
+                            </div>
 
+                            <img
+                                src="./assets/images/photo4.jpg"
+                                alt="咖啡时光"
+                                draggable="false"
+                            >
 
-<div class="film-number">
+                            <figcaption>
+                                COFFEE TIME
+                            </figcaption>
 
-04
+                        </figure>
 
-</div>
+                    </div>
 
 
+                    <div class="scene-copy">
 
-<div class="photo-box">
+                        <span class="copy-index">
+                            04 / COFFEE TIME
+                        </span>
 
+                        <h2>
+                            总有一些普通的下午，
+                            <br>
+                            会在以后慢慢发光。
+                        </h2>
 
-<img src="./assets/images/photo4.jpg">
+                        <p>
+                            咖啡很普通。
+                            <br>
+                            但和你一起，
+                            就变得不普通。
+                        </p>
 
+                    </div>
 
-</div>
+                </div>
 
+            </section>
 
 
-<div class="memory-text">
 
+            <!-- =================================================
+                 SCENE 05
+            ================================================== -->
 
-<h2>
+            <section
+                class="memory-scene"
+                data-index="4"
+            >
 
-COFFEE TIME
+                <div class="scene-inner">
 
-</h2>
+                    <div class="scene-meta">
 
+                        <span>FRAME 05</span>
 
+                        <span>PINK</span>
 
-<p>
+                    </div>
 
-那些平凡下午，
-<br>
-也值得收藏。
 
-</p>
+                    <div class="photo-composition">
 
+                        <div class="photo-shadow"></div>
 
-</div>
+                        <figure
+                            class="photo-card photo-card-main tilt-left"
+                        >
 
+                            <div class="photo-number">
+                                05
+                            </div>
 
-</section>
+                            <img
+                                src="./assets/images/photo5.jpg"
+                                alt="粉色时刻"
+                                draggable="false"
+                            >
 
+                            <figcaption>
+                                PINK MOMENT
+                            </figcaption>
 
+                        </figure>
 
+                    </div>
 
 
+                    <div class="scene-copy">
 
+                        <span class="copy-index">
+                            05 / PINK MOMENT
+                        </span>
 
+                        <h2>
+                            Everything becomes softer
+                            <br>
+                            when you slow down.
+                        </h2>
 
-<!-- FRAME 05 -->
+                        <p>
+                            有些瞬间，
+                            <br>
+                            只适合被好好收藏。
+                        </p>
 
-<section class="memory-frame">
+                    </div>
 
+                </div>
 
-<div class="film-number">
+            </section>
 
-05
 
-</div>
 
+            <!-- =================================================
+                 SCENE 06
+            ================================================== -->
 
+            <section
+                class="memory-scene"
+                data-index="5"
+            >
 
-<div class="photo-box">
+                <div class="scene-inner">
 
+                    <div class="scene-meta">
 
-<img src="./assets/images/photo5.jpg">
+                        <span>FRAME 06</span>
 
+                        <span>SHANGHAI</span>
 
-</div>
+                    </div>
 
 
+                    <div class="photo-composition">
 
-<div class="memory-text">
+                        <div class="photo-shadow"></div>
 
+                        <figure
+                            class="photo-card photo-card-main tilt-right"
+                        >
 
-<h2>
+                            <div class="photo-number">
+                                06
+                            </div>
 
-PINK MOMENT
+                            <img
+                                src="./assets/images/photo6.jpg"
+                                alt="上海街景"
+                                draggable="false"
+                            >
 
-</h2>
+                            <figcaption>
+                                SHANGHAI
+                            </figcaption>
 
+                        </figure>
 
+                    </div>
 
-<p>
 
-你笑起来的时候，
-<br>
-世界会变柔软。
+                    <div class="scene-copy">
 
-</p>
+                        <span class="copy-index">
+                            06 / SHANGHAI
+                        </span>
 
+                        <h2>
+                            城市很大，
+                            <br>
+                            每一次相遇都很难得。
+                        </h2>
 
+                        <p>
+                            而我很幸运，
+                            <br>
+                            能和你一起看这座城市。
+                        </p>
 
-</div>
+                    </div>
 
+                </div>
 
+            </section>
 
-</section>
 
 
+            <!-- =================================================
+                 SCENE 07
+                 BIRTHDAY CAKE
+            ================================================== -->
 
+            <section
+                class="memory-scene birthday-scene"
+                data-index="6"
+            >
 
+                <div class="scene-inner birthday-inner">
 
+                    <div class="scene-meta">
 
+                        <span>FRAME 07</span>
 
+                        <span>BIRTHDAY</span>
 
-<!-- FRAME 06 -->
+                    </div>
 
-<section class="memory-frame">
 
+                    <!-- 背景光 -->
 
-<div class="film-number">
+                    <div
+                        class="birthday-glow"
+                        aria-hidden="true"
+                    ></div>
 
-06
 
-</div>
+                    <!-- 蛋糕 -->
 
+                    <div class="birthday-stage">
 
+                        <div
+                            class="cake-light cake-light-1"
+                        ></div>
 
-<div class="photo-box">
+                        <div
+                            class="cake-light cake-light-2"
+                        ></div>
 
+                        <div
+                            class="cake-light cake-light-3"
+                        ></div>
 
-<img src="./assets/images/photo6.jpg">
 
+                        <figure class="cake-photo-card">
 
-</div>
+                            <div class="cake-top-label">
+                                HAPPY BIRTHDAY
+                            </div>
 
+                            <img
+                                id="cakeImage"
+                                src="./assets/images/cake.jpg"
+                                alt="生日蛋糕"
+                                draggable="false"
+                            >
 
+                            <figcaption>
+                                MAKE A WISH
+                            </figcaption>
 
-<div class="memory-text">
+                        </figure>
 
 
-<h2>
+                        <!-- 蜡烛 -->
 
-SHANGHAI
+                        <div
+                            class="candle candle-1"
+                        >
 
-</h2>
+                            <div class="flame"></div>
 
+                        </div>
 
+                        <div
+                            class="candle candle-2"
+                        >
 
-<p>
+                            <div class="flame"></div>
 
-城市很大，
-<br>
-但遇见你很幸运。
+                        </div>
 
-</p>
+                        <div
+                            class="candle candle-3"
+                        >
 
+                            <div class="flame"></div>
 
+                        </div>
 
-</div>
+                    </div>
 
 
-</section>
+                    <div class="scene-copy birthday-copy">
 
+                        <span class="copy-index">
+                            07 / MAKE A WISH
+                        </span>
 
+                        <h2>
+                            今天，
+                            <br>
+                            请把所有美好的愿望
+                            <br>
+                            留给自己。
+                        </h2>
 
+                        <p>
+                            生日快乐。
+                            <br>
+                            愿以后的每一年，
+                            都有值得被记住的瞬间。
+                        </p>
 
+                    </div>
 
+                </div>
 
+            </section>
 
 
-<!-- FRAME 07 生日 -->
 
-<section class="memory-frame birthday-scene">
+            <!-- =================================================
+                 SCENE 08
+            ================================================== -->
 
+            <section
+                class="memory-scene ending-scene"
+                data-index="7"
+            >
 
-<div class="film-number">
+                <div class="ending-inner">
 
-07
+                    <div class="ending-film-mark">
+                        08
+                    </div>
 
-</div>
 
+                    <div class="ending-kicker">
+                        TO BE CONTINUED
+                    </div>
 
 
+                    <h2>
+                        我们的故事
+                        <br>
+                        还没有结束。
+                    </h2>
 
-<div class="cake-area">
 
+                    <div class="ending-divider"></div>
 
-<div class="light-effect">
 
-</div>
+                    <p class="ending-main-text">
+                        下一张照片，
+                        <br>
+                        等我们一起完成。
+                    </p>
 
 
+                    <div class="ending-heart">
+                        ♡
+                    </div>
 
-<img 
-class="cake-photo"
-src="./assets/images/cake.jpg"
->
 
+                    <p class="ending-note">
+                        SOME MEMORIES
+                        <br>
+                        ARE STILL BEING MADE.
+                    </p>
 
 
+                    <div class="ending-date">
+                        06 · 04 — 08 · 20
+                    </div>
 
-<div class="wish">
+                </div>
 
-✨ Make A Wish ✨
+            </section>
 
-</div>
 
+        </div>
 
-
-</div>
-
-
-
-
-
-<div class="memory-text">
-
-
-<h2>
-
-MAKE A WISH
-
-</h2>
-
-
-
-<p>
-
-希望未来每一年，
-<br>
-都有你的生日。
-
-</p>
-
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-<!-- FRAME 08 最后一页 -->
-
-<section class="memory-frame ending">
-
-
-<div class="film-number">
-
-08
-
-</div>
-
-
-
-
-<div class="future-box">
-
-
-<h2>
-
-TO BE CONTINUED
-
-</h2>
-
-
-
-<p class="love-text">
-
-谢谢你来到我的世界
-
-<br><br>
-
-未来的每一页
-
-<br>
-
-想继续和你一起写下去
-
-</p>
-
-
-
-
-<div class="heart">
-
-♥
-
-</div>
-
-
-
-</div>
-
-
-
-</section>
-
-
-
-
+    </section>
 
 </main>
 
 
+<!-- =========================================================
+     BOTTOM HINT
+========================================================= -->
+
+<div
+    id="scrollHint"
+    class="scroll-hint"
+>
+
+    <span>
+        SCROLL TO REMEMBER
+    </span>
+
+    <div class="scroll-arrow">
+        ↓
+    </div>
+
+</div>
 
 
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
 
-
-<script src="./js/main.js"></script>
-     
-     <audio id="bgMusic" loop preload="auto">
-          <source src="./assets/music/love-memory.mp3" type="audio/mpeg">
-     </audio>
-
+<script
+    src="./js/main.js"
+></script>
 
 </body>
+
+</html>
