@@ -1,1080 +1,566 @@
-/* =========================================================
+/* =====================================
    MEMORY ALBUM
-   Main JavaScript
-========================================================= */
+   Film Roll Interaction
+   ===================================== */
+
+
+/* ==========================
+   页面加载
+========================== */
+
 
 document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+"DOMContentLoaded",
+()=>{
 
 
-        /* =====================================================
-           ELEMENTS
-        ====================================================== */
+console.log(
+"Memory Album Loaded"
+);
 
-        const loader =
-            document.getElementById(
-                "pageLoader"
-            );
 
 
-        const loaderProgress =
-            document.getElementById(
-                "loaderProgress"
-            );
+/* ==========================
+   滚动出现动画
+========================== */
 
 
-        const filmTrack =
-            document.getElementById(
-                "filmTrack"
-            );
+const frames =
+document.querySelectorAll(
+".memory-frame"
+);
 
 
-        const scenes =
-            Array.from(
-                document.querySelectorAll(
-                    ".memory-scene"
-                )
-            );
 
+const observer =
+new IntersectionObserver(
 
-        const navItems =
-            Array.from(
-                document.querySelectorAll(
-                    ".memory-nav-item"
-                )
-            );
+(entries)=>{
 
 
-        const sceneCounter =
-            document.getElementById(
-                "sceneCounter"
-            );
+entries.forEach(
+(entry)=>{
 
 
-        const music =
-            document.getElementById(
-                "bgMusic"
-            );
+if(entry.isIntersecting){
 
 
-        const musicButton =
-            document.getElementById(
-                "musicButton"
-            );
+entry.target.classList.add(
+"show"
+);
 
 
-        const scrollHint =
-            document.getElementById(
-                "scrollHint"
-            );
+}
 
 
-        /* =====================================================
-           STATE
-        ====================================================== */
+});
 
-        let currentScene = 0;
 
-        let isChanging = false;
+},
 
-        let touchStartY = 0;
+{
 
-        let touchStartX = 0;
 
-        let wheelLocked = false;
+threshold:0.25
 
 
-        const TOTAL_SCENES =
-            scenes.length;
+}
 
+);
 
-        /* =====================================================
-           IMAGE PRELOAD
-        ====================================================== */
 
-        const imageList =
-            Array.from(
-                document.querySelectorAll(
-                    "img"
-                )
-            );
 
+frames.forEach(
+(frame)=>{
 
-        let loadedImages = 0;
 
+observer.observe(frame);
 
-        function updateLoader() {
 
-            if (
-                imageList.length === 0
-            ) {
+});
 
-                loaderProgress.style.width =
-                    "100%";
 
-                return;
 
-            }
 
 
-            const percent =
-                Math.round(
-                    (
-                        loadedImages /
-                        imageList.length
-                    ) * 100
-                );
 
+/* ==========================
+   左侧导航跳转
+========================== */
 
-            loaderProgress.style.width =
-                `${percent}%`;
 
-        }
+const navItems =
+document.querySelectorAll(
+".memory-sidebar nav a"
+);
 
 
-        imageList.forEach(
-            (image) => {
 
-                if (
-                    image.complete
-                ) {
+navItems.forEach(
+(item,index)=>{
 
-                    loadedImages++;
 
-                    updateLoader();
+item.addEventListener(
+"click",
+()=>{
 
-                } else {
 
-                    image.addEventListener(
-                        "load",
-                        () => {
+const target =
+frames[index];
 
-                            loadedImages++;
 
-                            updateLoader();
+if(target){
 
-                        },
-                        {
-                            once: true
-                        }
-                    );
 
+target.scrollIntoView({
 
-                    image.addEventListener(
-                        "error",
-                        () => {
+behavior:"smooth",
 
-                            loadedImages++;
+block:"center"
 
-                            image.classList.add(
-                                "image-error"
-                            );
+});
 
-                            console.warn(
-                                "图片加载失败：",
-                                image.src
-                            );
 
-                            updateLoader();
+}
 
-                        },
-                        {
-                            once: true
-                        }
-                    );
 
-                }
+});
 
-            }
-        );
 
+});
 
-        /* =====================================================
-           LOADER
-        ====================================================== */
 
-        let loaderPercent = 0;
 
 
-        const loaderTimer =
-            setInterval(
-                () => {
 
-                    loaderPercent += 5;
 
+/* ==========================
+   图片点击放大
+========================== */
 
-                    if (
-                        loaderPercent > 95
-                    ) {
 
-                        loaderPercent = 95;
+const photos =
+document.querySelectorAll(
+".photo-box img"
+);
 
-                    }
 
 
-                    if (
-                        loadedImages ===
-                        imageList.length
-                    ) {
+photos.forEach(
+(photo)=>{
 
-                        loaderPercent = 100;
 
-                    }
+photo.addEventListener(
+"click",
+()=>{
 
 
-                    loaderProgress.style.width =
-                        `${loaderPercent}%`;
+createViewer(photo.src);
 
 
-                    if (
-                        loaderPercent >= 100
-                    ) {
 
-                        clearInterval(
-                            loaderTimer
-                        );
+});
 
-                    }
 
-                },
-                80
-            );
+});
 
 
-        window.addEventListener(
-            "load",
-            () => {
 
-                loaderProgress.style.width =
-                    "100%";
 
 
-                setTimeout(
-                    () => {
 
-                        loader.classList.add(
-                            "loaded"
-                        );
+});
 
-                    },
-                    500
-                );
 
-            }
-        );
 
 
-        /* =====================================================
-           UPDATE SCENE
-        ====================================================== */
 
-        function updateScene(
-            newIndex,
-            instant = false
-        ) {
 
 
-            /* 防止越界 */
+/* ==========================
+   图片查看器
+========================== */
 
-            if (
-                newIndex < 0
-            ) {
 
-                newIndex = 0;
+function createViewer(src){
 
-            }
 
 
-            if (
-                newIndex >= TOTAL_SCENES
-            ) {
+const viewer =
+document.createElement(
+"div"
+);
 
-                newIndex =
-                    TOTAL_SCENES - 1;
 
-            }
 
+viewer.className =
+"photo-viewer";
 
-            /* 已经在这个页面 */
 
-            if (
-                newIndex === currentScene &&
-                !instant
-            ) {
 
-                return;
+viewer.innerHTML = `
 
-            }
+<div class="viewer-bg">
 
+<img src="${src}">
 
-            if (
-                isChanging &&
-                !instant
-            ) {
+</div>
 
-                return;
+`;
 
-            }
 
 
-            isChanging = true;
+document.body.appendChild(
+viewer
+);
 
 
-            currentScene =
-                newIndex;
 
 
-            /* =============================================
-               胶卷移动
-            ============================================== */
+setTimeout(()=>{
 
-            filmTrack.style.transform =
-                `translateY(-${newIndex * 100}vh)`;
+viewer.classList.add(
+"active"
+);
 
 
-            /* =============================================
-               Scene active
-            ============================================== */
+},50);
 
-            scenes.forEach(
-                (scene, index) => {
 
-                    scene.classList.toggle(
-                        "active",
-                        index === newIndex
-                    );
 
-                }
-            );
 
 
-            /* =============================================
-               Navigation
-            ============================================== */
+viewer.addEventListener(
+"click",
+()=>{
 
-            navItems.forEach(
-                (item, index) => {
 
-                    item.classList.toggle(
-                        "active",
-                        index === newIndex
-                    );
+viewer.classList.remove(
+"active"
+);
 
-                }
-            );
 
 
-            /* =============================================
-               Counter
-            ============================================== */
+setTimeout(()=>{
 
-            const displayNumber =
-                String(
-                    newIndex + 1
-                ).padStart(
-                    2,
-                    "0"
-                );
 
+viewer.remove();
 
-            sceneCounter.textContent =
-                `${displayNumber} / 08`;
 
+},500);
 
-            /* =============================================
-               Hide scroll hint
-            ============================================== */
 
-            if (
-                scrollHint
-            ) {
 
-                if (
-                    newIndex >=
-                    TOTAL_SCENES - 1
-                ) {
+});
 
-                    scrollHint.style.opacity =
-                        "0";
 
-                } else {
+}
 
-                    scrollHint.style.opacity =
-                        "1";
 
-                }
 
-            }
 
 
-            /* =============================================
-               Unlock
-            ============================================== */
+/* ==========================
+   当前阅读位置
+========================== */
 
-            setTimeout(
-                () => {
 
-                    isChanging = false;
+window.addEventListener(
+"scroll",
+()=>{
 
-                },
-                instant ? 0 : 1150
-            );
 
+const frames =
+document.querySelectorAll(
+".memory-frame"
+);
 
-            /* =============================================
-               Music
-            ============================================== */
 
-            tryStartMusic();
 
-        }
+let current=0;
 
 
-        /* =====================================================
-           INITIAL SCENE
-        ====================================================== */
 
-        updateScene(
-            0,
-            true
-        );
+frames.forEach(
+(frame,index)=>{
 
 
-        /* =====================================================
-           NAVIGATION CLICK
-        ====================================================== */
+const rect =
+frame.getBoundingClientRect();
 
-        navItems.forEach(
-            (item) => {
 
-                item.addEventListener(
-                    "click",
-                    () => {
 
-                        const index =
-                            Number(
-                                item.dataset.scene
-                            );
+if(
+rect.top <
+window.innerHeight/2
+){
 
 
-                        updateScene(
-                            index
-                        );
+current=index;
 
-                    }
-                );
 
-            }
-        );
+}
 
 
-        /* =====================================================
-           WHEEL
-        ====================================================== */
+});
 
-        window.addEventListener(
-            "wheel",
-            (event) => {
 
-                event.preventDefault();
 
+const nav =
+document.querySelectorAll(
+".memory-sidebar nav a"
+);
 
-                if (
-                    wheelLocked ||
-                    isChanging
-                ) {
 
-                    return;
 
-                }
+nav.forEach(
+(item,index)=>{
 
 
-                wheelLocked = true;
+if(index===current){
 
 
-                if (
-                    event.deltaY > 0
-                ) {
+item.style.color="#fff";
 
-                    updateScene(
-                        currentScene + 1
-                    );
 
-                } else {
+item.style.transform=
+"translateX(8px)";
 
-                    updateScene(
-                        currentScene - 1
-                    );
 
-                }
+}
 
+else{
 
-                setTimeout(
-                    () => {
 
-                        wheelLocked = false;
+item.style.color="#777";
 
-                    },
-                    900
-                );
 
-            },
-            {
-                passive: false
-            }
-        );
+item.style.transform=
+"translateX(0)";
 
 
-        /* =====================================================
-           KEYBOARD
-        ====================================================== */
+}
 
-        window.addEventListener(
-            "keydown",
-            (event) => {
 
 
-                if (
-                    event.key ===
-                    "ArrowDown"
-                ) {
+});
 
-                    event.preventDefault();
 
-                    updateScene(
-                        currentScene + 1
-                    );
 
-                }
+});
 
 
-                if (
-                    event.key ===
-                    "ArrowRight"
-                ) {
 
-                    event.preventDefault();
 
-                    updateScene(
-                        currentScene + 1
-                    );
 
-                }
 
 
-                if (
-                    event.key ===
-                    "ArrowUp"
-                ) {
 
-                    event.preventDefault();
+/* ==========================
+   胶卷缓慢移动效果
+========================== */
 
-                    updateScene(
-                        currentScene - 1
-                    );
 
-                }
+window.addEventListener(
+"scroll",
+()=>{
 
 
-                if (
-                    event.key ===
-                    "ArrowLeft"
-                ) {
+const frames =
+document.querySelectorAll(
+".memory-frame"
+);
 
-                    event.preventDefault();
 
-                    updateScene(
-                        currentScene - 1
-                    );
 
-                }
+frames.forEach(
+(frame)=>{
 
-            }
-        );
 
+const img =
+frame.querySelector(
+".photo-box"
+);
 
-        /* =====================================================
-           TOUCH START
-        ====================================================== */
 
-        window.addEventListener(
-            "touchstart",
-            (event) => {
 
-                const touch =
-                    event.changedTouches[0];
+if(!img)return;
 
 
-                touchStartY =
-                    touch.clientY;
 
+const distance =
+window.innerHeight/2 -
+frame.getBoundingClientRect().top;
 
-                touchStartX =
-                    touch.clientX;
 
-            },
-            {
-                passive: true
-            }
-        );
 
+img.style.transform =
 
-        /* =====================================================
-           TOUCH END
-        ====================================================== */
+`
+rotate(-2deg)
+translateY(${distance*0.03}px)
+`;
 
-        window.addEventListener(
-            "touchend",
-            (event) => {
 
-                const touch =
-                    event.changedTouches[0];
 
+});
 
-                const endY =
-                    touch.clientY;
 
 
-                const endX =
-                    touch.clientX;
+});
 
 
-                const distanceY =
-                    touchStartY - endY;
 
 
-                const distanceX =
-                    touchStartX - endX;
 
 
-                /* 主要判断上下 */
 
-                if (
-                    Math.abs(distanceY) <
-                    45
-                ) {
+/* ==========================
+   生日蛋糕特殊效果
+========================== */
 
-                    return;
 
-                }
+const cake =
+document.querySelector(
+".memory-frame:nth-child(7)"
+);
 
 
-                if (
-                    Math.abs(distanceY) <
-                    Math.abs(distanceX)
-                ) {
 
-                    return;
+if(cake){
 
-                }
 
+cake.addEventListener(
+"mouseenter",
+()=>{
 
-                if (
-                    distanceY > 0
-                ) {
 
-                    updateScene(
-                        currentScene + 1
-                    );
+cake.style.filter =
+"brightness(1.08)";
 
-                } else {
 
-                    updateScene(
-                        currentScene - 1
-                    );
 
-                }
+});
 
-            },
-            {
-                passive: true
-            }
-        );
 
+cake.addEventListener(
+"mouseleave",
+()=>{
 
-        /* =====================================================
-           MUSIC
-        ====================================================== */
 
-        let musicStarted =
-            false;
+cake.style.filter =
+"brightness(1)";
 
 
-        function updateMusicUI() {
 
-            if (
-                music.paused
-            ) {
+});
 
-                musicButton.classList.remove(
-                    "playing"
-                );
 
+}
 
-                musicButton.querySelector(
-                    ".music-icon"
-                ).textContent =
-                    "♪";
 
-            } else {
 
-                musicButton.classList.add(
-                    "playing"
-                );
 
 
-                musicButton.querySelector(
-                    ".music-icon"
-                ).textContent =
-                    "♫";
 
-            }
 
-        }
+/* ==========================
+   添加查看器CSS
+========================== */
 
 
-        async function tryStartMusic() {
+const viewerStyle =
+document.createElement(
+"style"
+);
 
-            if (
-                musicStarted
-            ) {
 
-                return;
 
-            }
+viewerStyle.innerHTML = `
 
 
-            try {
+.photo-viewer{
 
-                music.volume =
-                    0.55;
+position:fixed;
 
+inset:0;
 
-                await music.play();
+background:
+rgba(0,0,0,.9);
 
+display:flex;
 
-                musicStarted =
-                    true;
+justify-content:center;
 
+align-items:center;
 
-                updateMusicUI();
+opacity:0;
 
+transition:.5s;
 
-            } catch (error) {
+z-index:999;
 
-                /*
-                    浏览器阻止自动播放时，
-                    不报错，不影响网页。
-                    等用户点击音乐按钮。
-                */
 
-                console.log(
-                    "浏览器暂时阻止自动播放，等待用户操作。"
-                );
+}
 
-            }
 
-        }
 
+.photo-viewer.active{
 
-        /* =====================================================
-           MUSIC BUTTON
-        ====================================================== */
+opacity:1;
 
-        musicButton.addEventListener(
-            "click",
-            async () => {
+}
 
-                try {
 
-                    if (
-                        music.paused
-                    ) {
 
-                        music.volume =
-                            0.55;
+.photo-viewer img{
 
+max-width:90vw;
 
-                        await music.play();
+max-height:85vh;
 
+box-shadow:
+0 40px 100px rgba(0,0,0,.8);
 
-                        musicStarted =
-                            true;
+transform:
+scale(.8);
 
-                    } else {
+transition:.5s;
 
-                        music.pause();
 
-                    }
+}
 
 
-                    updateMusicUI();
 
-                } catch (error) {
+.photo-viewer.active img{
 
-                    console.error(
-                        "音乐播放失败：",
-                        error
-                    );
+transform:
+scale(1);
 
-                    alert(
-                        "音乐播放失败，请确认 love-memory.mp3 是正常的 MP3 文件。"
-                    );
+}
 
-                }
 
-            }
-        );
 
+.viewer-bg{
 
-        /* =====================================================
-           FIRST USER INTERACTION
-           用来绕过浏览器自动播放限制
-        ====================================================== */
+display:flex;
 
-        const startMusicFromUser =
-            async () => {
+justify-content:center;
 
-                if (
-                    musicStarted
-                ) {
+align-items:center;
 
-                    return;
+width:100%;
 
-                }
+height:100%;
 
 
-                try {
+}
 
-                    music.volume =
-                        0.55;
 
+`;
 
-                    await music.play();
 
 
-                    musicStarted =
-                        true;
-
-
-                    updateMusicUI();
-
-
-                } catch (error) {
-
-                    console.log(
-                        "音乐仍无法播放：",
-                        error
-                    );
-
-                }
-
-            };
-
-
-        document.addEventListener(
-            "click",
-            startMusicFromUser,
-            {
-                once: true
-            }
-        );
-
-
-        document.addEventListener(
-            "touchstart",
-            startMusicFromUser,
-            {
-                once: true,
-                passive: true
-            }
-        );
-
-
-        document.addEventListener(
-            "keydown",
-            startMusicFromUser,
-            {
-                once: true
-            }
-        );
-
-
-        /* =====================================================
-           MUSIC EVENTS
-        ====================================================== */
-
-        music.addEventListener(
-            "play",
-            () => {
-
-                updateMusicUI();
-
-            }
-        );
-
-
-        music.addEventListener(
-            "pause",
-            () => {
-
-                updateMusicUI();
-
-            }
-        );
-
-
-        music.addEventListener(
-            "ended",
-            () => {
-
-                music.currentTime =
-                    0;
-
-            }
-        );
-
-
-        music.addEventListener(
-            "error",
-            () => {
-
-                console.error(
-                    "================================"
-                );
-
-                console.error(
-                    "音乐加载失败"
-                );
-
-                console.error(
-                    "路径：./assets/music/love-memory.mp3"
-                );
-
-                console.error(
-                    music.error
-                );
-
-                console.error(
-                    "================================"
-                );
-
-            }
-        );
-
-
-        /* =====================================================
-           CAKE
-        ====================================================== */
-
-        const cakeImage =
-            document.getElementById(
-                "cakeImage"
-            );
-
-
-        if (
-            cakeImage
-        ) {
-
-            cakeImage.addEventListener(
-                "click",
-                () => {
-
-                    const birthdayScene =
-                        document.querySelector(
-                            ".birthday-scene"
-                        );
-
-
-                    birthdayScene.classList.toggle(
-                        "cake-clicked"
-                    );
-
-                }
-            );
-
-        }
-
-
-        /* =====================================================
-           DOUBLE CLICK
-        ====================================================== */
-
-        document.addEventListener(
-            "dblclick",
-            () => {
-
-                if (
-                    currentScene === 6
-                ) {
-
-                    const birthdayScene =
-                        document.querySelector(
-                            ".birthday-scene"
-                        );
-
-
-                    birthdayScene.classList.toggle(
-                        "cake-clicked"
-                    );
-
-                }
-
-            }
-        );
-
-
-        /* =====================================================
-           PREVENT IMAGE DRAG
-        ====================================================== */
-
-        document
-            .querySelectorAll("img")
-            .forEach(
-                (image) => {
-
-                    image.addEventListener(
-                        "dragstart",
-                        (event) => {
-
-                            event.preventDefault();
-
-                        }
-                    );
-
-                }
-            );
-
-
-        /* =====================================================
-           DEBUG INFORMATION
-        ====================================================== */
-
-        console.log(
-            "======================================"
-        );
-
-        console.log(
-            "MEMORY ALBUM 已启动"
-        );
-
-        console.log(
-            `照片数量：${imageList.length}`
-        );
-
-        console.log(
-            `场景数量：${TOTAL_SCENES}`
-        );
-
-        console.log(
-            "音乐：./assets/music/love-memory.mp3"
-        );
-
-        console.log(
-            "======================================"
-        );
-
-    }
+document.head.appendChild(
+viewerStyle
 );
