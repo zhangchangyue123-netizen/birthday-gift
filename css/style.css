@@ -1,1090 +1,1958 @@
-/* =====================================
-   MEMORY ALBUM
-   Film Roll Photography Style
-   ===================================== */
+/* =========================================================
+   RESET
+========================================================= */
 
-
-/* ---------- 基础 ---------- */
-
-*{
-
-    margin:0;
-
-    padding:0;
-
-    box-sizing:border-box;
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 
-html{
-
-    scroll-behavior:smooth;
-
+html {
+    width: 100%;
+    height: 100%;
 }
 
 
-body{
+body {
+    width: 100%;
+    height: 100%;
 
-    width:100%;
+    overflow: hidden;
 
-    min-height:100vh;
+    background: #090909;
 
-    background:#090909;
-
-    color:#eee;
+    color: #eeeeee;
 
     font-family:
+        "Times New Roman",
+        "Noto Serif SC",
+        "Songti SC",
+        serif;
 
-    "Times New Roman",
-    "Noto Serif SC",
-    serif;
-
-    overflow-x:hidden;
-
+    -webkit-font-smoothing: antialiased;
 }
 
 
-/* 胶片颗粒 */
+/* =========================================================
+   VARIABLES
+========================================================= */
 
-body::before{
+:root {
 
-    content:"";
+    --black:
+        #090909;
 
-    position:fixed;
+    --black-soft:
+        #111111;
 
-    inset:0;
+    --white:
+        #eeeeee;
 
-    pointer-events:none;
+    --gray:
+        #777777;
 
-    opacity:.12;
+    --gray-dark:
+        #444444;
 
-    z-index:10;
+    --line:
+        rgba(255,255,255,0.11);
 
-    background-image:
+    --pink:
+        #e7a1ad;
 
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23noise)' opacity='.8'/%3E%3C/svg%3E");
-
+    --transition:
+        cubic-bezier(.77,0,.18,1);
 }
 
 
+/* =========================================================
+   PAGE LOADER
+========================================================= */
 
-/* =====================================
-        左侧信息栏
-===================================== */
+.page-loader {
 
+    position: fixed;
 
-.memory-sidebar{
+    inset: 0;
 
-    position:fixed;
+    z-index: 999999;
 
-    left:0;
+    display: flex;
 
-    top:0;
+    align-items: center;
 
-    width:320px;
+    justify-content: center;
 
-    height:100vh;
-
-    padding:60px 45px;
-
-    background:
-
-    linear-gradient(
-
-    180deg,
-
-    #111,
-
-    #050505
-
-    );
-
-    border-right:
-
-    1px solid rgba(255,255,255,.08);
-
-    z-index:5;
-
-}
-
-
-
-.logo{
-
-
-    font-size:13px;
-
-    letter-spacing:8px;
-
-    color:#aaa;
-
-    line-height:1.8;
-
-}
-
-
-
-.memory-sidebar h1{
-
-
-    margin-top:50px;
-
-    font-size:38px;
-
-    font-weight:300;
-
-    line-height:1.5;
-
-    letter-spacing:5px;
-
-
-}
-
-
-
-.intro{
-
-
-    margin-top:40px;
-
-    color:#999;
-
-    font-size:14px;
-
-    letter-spacing:3px;
-
-    line-height:2.2;
-
-
-}
-
-
-
-.camera{
-
-
-    margin-top:45px;
-
-    font-size:28px;
-
-    opacity:.7;
-
-}
-
-
-
-.memory-sidebar nav{
-
-
-    margin-top:50px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:18px;
-
-}
-
-
-
-.memory-sidebar nav a{
-
-
-    color:#777;
-
-    font-size:13px;
-
-    letter-spacing:2px;
-
-    cursor:pointer;
-
-    transition:.4s;
-
-
-}
-
-
-.memory-sidebar nav a:hover{
-
-
-    color:white;
-
-    transform:translateX(8px);
-
-
-}
-
-
-
-
-
-/* =====================================
-        胶卷主体
-===================================== */
-
-
-.film-container{
-
-
-    margin-left:320px;
-
-    width:calc(100% - 320px);
-
-    padding:80px 80px;
-
-
-}
-
-
-
-
-/* =====================================
-        每一格回忆
-===================================== */
-
-
-.memory-frame{
-
-
-    min-height:100vh;
-
-    position:relative;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:80px 0;
-
-
-}
-
-
-
-
-/* 胶卷编号 */
-
-
-.film-number{
-
-
-    position:absolute;
-
-    top:80px;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-
-    font-size:12px;
-
-    letter-spacing:8px;
-
-    color:#666;
-
-
-}
-
-
-
-
-
-/* =====================================
-        胶卷孔洞效果
-===================================== */
-
-
-.memory-frame::before,
-.memory-frame::after{
-
-
-    content:"";
-
-
-    position:absolute;
-
-    top:0;
-
-    width:30px;
-
-    height:100%;
-
-
-    background:
-
-    repeating-linear-gradient(
-
-    to bottom,
-
-    transparent 0,
-
-    transparent 30px,
-
-    #050505 30px,
-
-    #050505 65px,
-
-    transparent 65px,
-
-    transparent 95px
-
-    );
-
-
-    opacity:.8;
-
-
-}
-
-
-
-.memory-frame::before{
-
-
-    left:-50px;
-
-}
-
-
-.memory-frame::after{
-
-
-    right:-50px;
-
-}
-
-
-
-
-
-
-
-/* =====================================
-        图片区域
-===================================== */
-
-
-.photo-box{
-
-
-    position:relative;
-
-
-    width:min(65vw,520px);
-
-
-    padding:18px;
-
-
-    background:#f4f1ea;
-
-
-    box-shadow:
-
-
-    0 40px 90px rgba(0,0,0,.7);
-
-
-    transform:
-
-    rotate(-2deg);
-
-
-    transition:.8s;
-
-
-
-}
-
-
-
-.photo-box:hover{
-
-
-    transform:
-
-    rotate(0deg)
-
-    scale(1.03);
-
-
-}
-
-
-
-
-
-.photo-box img{
-
-
-    display:block;
-
-    width:100%;
-
-    height:auto;
-
-
-    max-height:65vh;
-
-
-    object-fit:cover;
-
-
-}
-
-
-
-
-
-
-/* =====================================
-        文案
-===================================== */
-
-
-.memory-text{
-
-
-    margin-top:45px;
-
-    text-align:center;
-
-
-}
-
-
-
-.memory-text h2{
-
-
-    font-size:22px;
-
-    font-weight:400;
-
-    letter-spacing:8px;
-
-
-}
-
-
-
-.memory-text p{
-
-
-    margin-top:25px;
-
-    color:#aaa;
-
-    line-height:2.2;
-
-    font-size:15px;
-
-    letter-spacing:3px;
-
-
-}
-
-
-
-.memory-text span{
-
-
-    display:block;
-
-    margin-top:20px;
-
-    color:#666;
-
-    font-size:12px;
-
-    letter-spacing:4px;
-
-}
-
-
-
-
-
-/* =====================================
-        生日蛋糕
-===================================== */
-
-
-.memory-frame:nth-child(7)
-.photo-box{
-
-
-    box-shadow:
-
-
-    0 0 80px rgba(255,190,100,.25),
-
-    0 40px 90px rgba(0,0,0,.8);
-
-
-}
-
-
-
-
-
-
-
-/* =====================================
-        最后一页
-===================================== */
-
-
-.ending{
-
-
-    background:
-
-    radial-gradient(
-
-    circle,
-
-    rgba(255,255,255,.05),
-
-    transparent
-
-    );
-
-
-}
-
-
-
-.future-box{
-
-
-    text-align:center;
-
-
-}
-
-
-
-.future-box h2{
-
-
-    font-size:32px;
-
-    font-weight:300;
-
-    letter-spacing:10px;
-
-
-}
-
-
-
-.future-box p{
-
-
-    margin-top:40px;
-
-    color:#aaa;
-
-    line-height:2;
-
-    letter-spacing:3px;
-
-
-}
-
-
-
-
-
-/* =====================================
-        动画准备
-===================================== */
-
-
-.memory-frame{
-
-
-    opacity:0;
-
-    transform:translateY(60px);
-
+    background: #090909;
 
     transition:
-
-    opacity 1.2s ease,
-
-    transform 1.2s ease;
-
+        opacity 1s ease,
+        visibility 1s ease;
 
 }
 
 
+.page-loader.loaded {
 
-.memory-frame.show{
+    opacity: 0;
 
+    visibility: hidden;
 
-    opacity:1;
-
-    transform:translateY(0);
-
-
-}
-
-
-
-
-
-/* =====================================
-        手机适配
-===================================== */
-
-
-@media(max-width:900px){
-
-
-.memory-sidebar{
-
-
-    position:relative;
-
-    width:100%;
-
-    height:auto;
-
-    padding:40px 25px;
-
+    pointer-events: none;
 
 }
 
 
+.loader-inner {
 
-.memory-sidebar h1{
+    width: 280px;
 
-
-    font-size:30px;
-
-
-}
-
-
-.memory-sidebar nav{
-
-
-    display:none;
+    text-align: center;
 
 }
 
 
+.loader-title {
 
-.film-container{
+    font-size: 12px;
 
+    letter-spacing: 8px;
 
-    margin-left:0;
+    margin-bottom: 25px;
 
-    width:100%;
-
-    padding:40px 20px;
-
-
-}
-
-
-
-.photo-box{
-
-
-    width:85vw;
-
+    color: #ddd;
 
 }
 
 
+.loader-line {
 
-.memory-frame::before,
-.memory-frame::after{
+    width: 100%;
 
+    height: 1px;
 
-    display:none;
+    background: #252525;
 
-
-}
-
-
-}
-/* =========================
- 音乐按钮
-========================= */
-
-
-#musicBtn{
-
-
-position:fixed;
-
-right:25px;
-
-bottom:25px;
-
-
-width:55px;
-
-height:55px;
-
-
-border-radius:50%;
-
-
-background:
-
-rgba(255,255,255,.12);
-
-
-border:
-
-1px solid rgba(255,255,255,.3);
-
-
-color:white;
-
-
-font-size:22px;
-
-
-backdrop-filter:blur(10px);
-
-
-z-index:999;
-
+    overflow: hidden;
 
 }
 
 
+.loader-line span {
 
-/* =========================
- 蛋糕动画
-========================= */
+    display: block;
 
+    width: 0;
 
-.birthday-scene{
+    height: 100%;
 
+    background: #ddd;
 
-background:
-
-radial-gradient(
-
-circle,
-
-rgba(255,200,120,.15),
-
-transparent 45%
-
-);
-
+    transition:
+        width .3s ease;
 
 }
 
 
+.loader-subtitle {
 
-.cake-area{
+    margin-top: 15px;
 
+    font-size: 8px;
 
-position:relative;
+    letter-spacing: 4px;
 
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
+    color: #555;
 
 }
 
 
+/* =========================================================
+   FILM GRAIN
+========================================================= */
 
-.cake-photo{
+.film-grain {
 
+    position: fixed;
 
-width:min(65vw,500px);
+    inset: -50%;
 
+    z-index: 5000;
 
-animation:
+    pointer-events: none;
 
-cakeFloat 4s infinite ease-in-out;
+    opacity: .055;
 
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
 
-}
-
-
-
-@keyframes cakeFloat{
-
-
-0%,100%{
-
-transform:
-translateY(0);
+    animation:
+        grainMove .25s steps(2) infinite;
 
 }
 
 
-50%{
+@keyframes grainMove {
 
-transform:
-translateY(-15px);
+    0% {
+        transform: translate(0,0);
+    }
 
-}
+    25% {
+        transform: translate(3%,-2%);
+    }
 
+    50% {
+        transform: translate(-2%,3%);
+    }
 
-}
+    75% {
+        transform: translate(2%,2%);
+    }
 
-
-
-
-
-.light-effect{
-
-
-position:absolute;
-
-
-width:350px;
-
-height:350px;
-
-
-background:
-
-radial-gradient(
-
-circle,
-
-rgba(255,210,120,.35),
-
-transparent 70%
-
-);
-
-
-animation:
-
-lightBreath 3s infinite;
-
+    100% {
+        transform: translate(-3%,-3%);
+    }
 
 }
 
 
+/* =========================================================
+   TOP LABEL
+========================================================= */
 
-@keyframes lightBreath{
+.top-label {
 
+    position: fixed;
 
-50%{
+    top: 22px;
 
-opacity:.4;
+    left: 350px;
 
-transform:scale(1.2);
+    right: 45px;
 
-}
+    z-index: 100;
 
+    display: flex;
 
-}
+    justify-content: space-between;
 
+    font-size: 8px;
 
+    letter-spacing: 4px;
 
-
-.wish{
-
-
-position:absolute;
-
-
-bottom:-60px;
-
-
-letter-spacing:5px;
-
-
-font-size:18px;
-
-
-color:#ffdca8;
-
+    color: #555;
 
 }
 
 
+#sceneCounter {
 
-
-/* =========================
- 最后一页
-========================= */
-
-
-.love-text{
-
-
-margin-top:40px;
-
-
-line-height:2.5;
-
-
-font-size:17px;
-
-
-letter-spacing:5px;
-
+    color: #888;
 
 }
 
 
+/* =========================================================
+   ALBUM
+========================================================= */
 
-.heart{
+.album {
 
+    width: 100vw;
 
-margin-top:40px;
+    height: 100vh;
 
+    display: flex;
 
-font-size:45px;
-
-
-color:#ff8fa3;
-
-
-animation:
-
-heartbeat 1.5s infinite;
-
-
-}
-
-
-
-@keyframes heartbeat{
-
-
-50%{
-
-transform:scale(1.2);
+    background:
+        radial-gradient(
+            ellipse at 70% 50%,
+            #141414 0%,
+            #0b0b0b 42%,
+            #080808 100%
+        );
 
 }
 
 
-}
-/* ===== FINAL DEBUG FIX ===== */
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
+.sidebar {
 
-.film-container{
+    position: relative;
 
-margin-left:320px !important;
+    z-index: 100;
 
-display:block !important;
+    width: 320px;
 
-position:relative !important;
+    min-width: 320px;
 
-width:calc(100% - 320px) !important;
+    height: 100vh;
 
-}
+    padding:
+        48px 40px 35px;
 
+    border-right:
+        1px solid
+        rgba(255,255,255,.09);
 
+    display: flex;
 
-.memory-frame{
+    flex-direction: column;
 
-
-display:flex !important;
-
-position:relative !important;
-
-
-height:900px !important;
-
-
-opacity:1 !important;
-
-visibility:visible !important;
-
-
-transform:none !important;
-
-
-align-items:center;
-
-justify-content:center;
-
-
-flex-direction:column;
-
+    justify-content: space-between;
 
 }
 
 
+.brand {
 
-.photo-box{
+    display: flex;
 
+    flex-direction: column;
 
-display:block !important;
+    gap: 5px;
 
-width:400px !important;
+    font-size: 10px;
 
-height:500px !important;
+    letter-spacing: 7px;
 
-
-background:white;
-
-
-}
-
-
-
-.photo-box img{
-
-
-display:block !important;
-
-
-width:100% !important;
-
-height:100% !important;
-
-
-object-fit:cover;
-
+    color: #888;
 
 }
 
 
+.title-block {
 
-.memory-text{
-
-
-display:block !important;
-
-opacity:1 !important;
-
-visibility:visible !important;
-
-
-color:white;
-
+    margin-top: 55px;
 
 }
 
 
-.film-number{
+.title-block h1 {
 
+    font-size: 32px;
 
-display:block !important;
+    font-weight: 400;
 
-color:white;
+    line-height: 1.65;
 
+    letter-spacing: 4px;
+
+    color: #dedede;
 
 }
 
 
+.title-block h1 span {
+
+    font-size: 30px;
+
+    margin-left: 4px;
+
+}
+
+
+.title-block p {
+
+    margin-top: 34px;
+
+    font-size: 11px;
+
+    line-height: 2.8;
+
+    letter-spacing: 4px;
+
+    color: #666;
+
+}
+
+
+/* =========================================================
+   CAMERA
+========================================================= */
+
+.camera-mark {
+
+    position: relative;
+
+    margin-top: 50px;
+
+    width: 30px;
+
+    height: 19px;
+
+    border:
+        1px solid
+        #777;
+
+    border-radius: 3px;
+
+    opacity: .6;
+
+}
+
+
+.camera-mark::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: -5px;
+
+    left: 6px;
+
+    width: 8px;
+
+    height: 5px;
+
+    border:
+        1px solid
+        #777;
+
+    border-bottom: none;
+
+}
+
+
+.camera-lens {
+
+    position: absolute;
+
+    width: 9px;
+
+    height: 9px;
+
+    border:
+        1px solid
+        #999;
+
+    border-radius: 50%;
+
+    left: 9px;
+
+    top: 4px;
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.memory-navigation {
+
+    margin-top: 35px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 13px;
+
+}
+
+
+.memory-nav-item {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    width: fit-content;
+
+    border: none;
+
+    background: transparent;
+
+    color: #555;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition:
+        color .35s ease,
+        transform .35s ease;
+
+}
+
+
+.memory-nav-item:hover {
+
+    color: #aaa;
+
+    transform:
+        translateX(4px);
+
+}
+
+
+.memory-nav-item.active {
+
+    color: #eee;
+
+    transform:
+        translateX(4px);
+
+}
+
+
+.nav-number {
+
+    width: 22px;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+}
+
+
+.nav-name {
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+}
+
+
+/* =========================================================
+   SIDEBAR BOTTOM
+========================================================= */
+
+.sidebar-bottom {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 7px;
+
+    letter-spacing: 2px;
+
+    color: #444;
+
+}
+
+
+.sidebar-bottom span {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: #777;
+
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content {
+
+    position: relative;
+
+    flex: 1;
+
+    height: 100vh;
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   FILM PERFORATIONS
+========================================================= */
+
+.film-perforations {
+
+    position: absolute;
+
+    top: 0;
+
+    bottom: 0;
+
+    width: 22px;
+
+    z-index: 50;
+
+    opacity: .45;
+
+    pointer-events: none;
+
+    background-image:
+        radial-gradient(
+            ellipse at center,
+            #222 0,
+            #222 43%,
+            transparent 47%
+        );
+
+    background-size:
+        22px 36px;
+
+    background-position:
+        center 5px;
+
+}
+
+
+.film-perforations-left {
+
+    left: 0;
+
+    border-right:
+        1px solid
+        rgba(255,255,255,.05);
+
+}
+
+
+.film-perforations-right {
+
+    right: 0;
+
+    border-left:
+        1px solid
+        rgba(255,255,255,.05);
+
+}
+
+
+/* =========================================================
+   FILM TRACK
+========================================================= */
+
+.film-track {
+
+    width: 100%;
+
+    height: 100%;
+
+    transition:
+        transform
+        1.15s
+        var(--transition);
+
+}
+
+
+/* =========================================================
+   MEMORY SCENE
+========================================================= */
+
+.memory-scene {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 100vh;
+
+    overflow: hidden;
+
+    opacity: .2;
+
+    transition:
+        opacity .8s ease;
+
+}
+
+
+.memory-scene.active {
+
+    opacity: 1;
+
+}
+
+
+.scene-inner {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+/* =========================================================
+   SCENE META
+========================================================= */
+
+.scene-meta {
+
+    position: absolute;
+
+    top: 60px;
+
+    left: 55px;
+
+    right: 55px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 8px;
+
+    letter-spacing: 4px;
+
+    color: #4f4f4f;
+
+}
+
+
+/* =========================================================
+   PHOTO COMPOSITION
+========================================================= */
+
+.photo-composition {
+
+    position: relative;
+
+    width: 54%;
+
+    max-width: 700px;
+
+}
+
+
+.photo-shadow {
+
+    position: absolute;
+
+    inset: 20px -20px -20px 20px;
+
+    background: #020202;
+
+    filter: blur(20px);
+
+    opacity: .8;
+
+}
+
+
+.photo-card {
+
+    position: relative;
+
+    margin: 0;
+
+    padding: 15px 15px 42px;
+
+    background:
+        #d9d6cf;
+
+    box-shadow:
+        0 35px 70px
+        rgba(0,0,0,.65);
+
+    transform:
+        rotate(-1deg);
+
+    transition:
+        transform 1.2s var(--transition);
+
+}
+
+
+.photo-card img {
+
+    display: block;
+
+    width: 100%;
+
+    aspect-ratio: 4 / 3;
+
+    object-fit: cover;
+
+    background: #151515;
+
+    filter:
+        saturate(.88)
+        contrast(.95);
+
+}
+
+
+.photo-card figcaption {
+
+    position: absolute;
+
+    bottom: 12px;
+
+    left: 16px;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+    color: #333;
+
+}
+
+
+.photo-number {
+
+    position: absolute;
+
+    right: 17px;
+
+    bottom: 12px;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 8px;
+
+    color: #555;
+
+}
+
+
+.tilt-left {
+
+    transform:
+        rotate(-2deg);
+
+}
+
+
+.tilt-right {
+
+    transform:
+        rotate(1.8deg);
+
+}
+
+
+.memory-scene.active
+.photo-card {
+
+    transform:
+        rotate(0deg)
+        scale(1);
+
+}
+
+
+.memory-scene:not(.active)
+.photo-card {
+
+    transform:
+        scale(.95)
+        translateY(30px);
+
+}
+
+
+/* =========================================================
+   SCENE COPY
+========================================================= */
+
+.scene-copy {
+
+    width: 310px;
+
+    margin-left: 60px;
+
+    opacity: 0;
+
+    transform:
+        translateX(35px);
+
+    transition:
+        opacity .8s ease .25s,
+        transform .8s ease .25s;
+
+}
+
+
+.memory-scene.active
+.scene-copy {
+
+    opacity: 1;
+
+    transform:
+        translateX(0);
+
+}
+
+
+.copy-index {
+
+    display: block;
+
+    margin-bottom: 25px;
+
+    font-size: 8px;
+
+    letter-spacing: 4px;
+
+    color: #666;
+
+}
+
+
+.scene-copy h2 {
+
+    font-size: 26px;
+
+    font-weight: 400;
+
+    line-height: 1.65;
+
+    letter-spacing: 2px;
+
+    color: #ddd;
+
+}
+
+
+.scene-copy p {
+
+    margin-top: 25px;
+
+    font-size: 12px;
+
+    line-height: 2.1;
+
+    letter-spacing: 1px;
+
+    color: #777;
+
+}
+
+
+/* =========================================================
+   BIRTHDAY
+========================================================= */
+
+.birthday-scene {
+
+    background:
+        radial-gradient(
+            circle at 45% 50%,
+            rgba(190,110,125,.08),
+            transparent 35%
+        );
+
+}
+
+
+.birthday-inner {
+
+    overflow: hidden;
+
+}
+
+
+.birthday-glow {
+
+    position: absolute;
+
+    width: 420px;
+
+    height: 420px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,182,145,.14),
+            rgba(255,130,130,.03) 45%,
+            transparent 70%
+        );
+
+    filter: blur(20px);
+
+    opacity: 0;
+
+    transform:
+        scale(.7);
+
+    transition:
+        opacity 1.5s ease,
+        transform 1.5s ease;
+
+}
+
+
+.birthday-scene.active
+.birthday-glow {
+
+    opacity: 1;
+
+    transform:
+        scale(1);
+
+}
+
+
+.birthday-stage {
+
+    position: relative;
+
+    width: 52%;
+
+    max-width: 650px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.cake-photo-card {
+
+    position: relative;
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 13px 13px 43px;
+
+    background: #d9d6cf;
+
+    box-shadow:
+        0 40px 90px
+        rgba(0,0,0,.75);
+
+    transform:
+        scale(.88)
+        translateY(40px);
+
+    opacity: 0;
+
+    transition:
+        opacity 1.1s ease .25s,
+        transform 1.2s var(--transition) .25s;
+
+    z-index: 5;
+
+}
+
+
+.birthday-scene.active
+.cake-photo-card {
+
+    opacity: 1;
+
+    transform:
+        scale(1)
+        translateY(0);
+
+}
+
+
+.cake-photo-card img {
+
+    width: 100%;
+
+    display: block;
+
+    aspect-ratio: 4 / 3;
+
+    object-fit: cover;
+
+}
+
+
+.cake-top-label {
+
+    position: absolute;
+
+    top: -25px;
+
+    left: 10px;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+
+    color: #666;
+
+}
+
+
+.cake-photo-card figcaption {
+
+    position: absolute;
+
+    left: 15px;
+
+    bottom: 13px;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+
+    color: #444;
+
+}
+
+
+/* =========================================================
+   CANDLES
+========================================================= */
+
+.candle {
+
+    position: absolute;
+
+    z-index: 10;
+
+    bottom: 23%;
+
+    width: 6px;
+
+    height: 35px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #eee,
+            #aaa,
+            #eee
+        );
+
+    border-radius: 2px;
+
+    opacity: 0;
+
+    transform:
+        translateY(10px);
+
+    transition:
+        opacity .6s ease 1s,
+        transform .6s ease 1s;
+
+}
+
+
+.birthday-scene.active
+.candle {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+
+}
+
+
+.candle-1 {
+
+    left: 42%;
+
+}
+
+
+.candle-2 {
+
+    left: 50%;
+
+    bottom: 27%;
+
+}
+
+
+.candle-3 {
+
+    left: 58%;
+
+}
+
+
+.flame {
+
+    position: absolute;
+
+    width: 8px;
+
+    height: 13px;
+
+    left: -1px;
+
+    top: -13px;
+
+    border-radius:
+        50% 50% 50% 50%;
+
+    background:
+        #ffd28c;
+
+    box-shadow:
+        0 0 15px
+        5px rgba(255,180,90,.25);
+
+    transform-origin:
+        center bottom;
+
+    animation:
+        flame 1s infinite alternate ease-in-out;
+
+}
+
+
+@keyframes flame {
+
+    0% {
+
+        transform:
+            scale(.85)
+            rotate(-4deg);
+
+    }
+
+    100% {
+
+        transform:
+            scale(1.15)
+            rotate(4deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   CAKE LIGHTS
+========================================================= */
+
+.cake-light {
+
+    position: absolute;
+
+    width: 130px;
+
+    height: 130px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,200,130,.16),
+            transparent 70%
+        );
+
+    filter: blur(10px);
+
+    opacity: 0;
+
+    transition:
+        opacity 1s ease;
+
+}
+
+
+.birthday-scene.active
+.cake-light {
+
+    opacity: 1;
+
+}
+
+
+.cake-light-1 {
+
+    left: 35%;
+
+    top: 35%;
+
+}
+
+
+.cake-light-2 {
+
+    left: 48%;
+
+    top: 25%;
+
+}
+
+
+.cake-light-3 {
+
+    left: 58%;
+
+    top: 38%;
+
+}
+
+
+/* =========================================================
+   ENDING
+========================================================= */
+
+.ending-scene {
+
+    background:
+        radial-gradient(
+            circle at center,
+            #141414,
+            #080808 65%
+        );
+
+}
+
+
+.ending-inner {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    opacity: 0;
+
+    transform:
+        translateY(25px);
+
+    transition:
+        opacity 1.3s ease .3s,
+        transform 1.3s ease .3s;
+
+}
+
+
+.ending-scene.active
+.ending-inner {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+
+}
+
+
+.ending-film-mark {
+
+    position: absolute;
+
+    top: 80px;
+
+    left: 60px;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+
+    color: #444;
+
+}
+
+
+.ending-kicker {
+
+    font-size: 9px;
+
+    letter-spacing: 7px;
+
+    color: #666;
+
+    margin-bottom: 40px;
+
+}
+
+
+.ending-inner h2 {
+
+    font-size: 43px;
+
+    font-weight: 400;
+
+    line-height: 1.7;
+
+    letter-spacing: 5px;
+
+    color: #ddd;
+
+}
+
+
+.ending-divider {
+
+    width: 70px;
+
+    height: 1px;
+
+    background: #555;
+
+    margin: 38px 0;
+
+}
+
+
+.ending-main-text {
+
+    font-size: 14px;
+
+    line-height: 2.5;
+
+    letter-spacing: 2px;
+
+    color: #777;
+
+}
+
+
+.ending-heart {
+
+    margin-top: 45px;
+
+    font-size: 36px;
+
+    color: #ddd;
+
+    animation:
+        heartbeat 2.2s infinite ease-in-out;
+
+}
+
+
+@keyframes heartbeat {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.13);
+
+    }
+
+}
+
+
+.ending-note {
+
+    margin-top: 30px;
+
+    font-size: 7px;
+
+    line-height: 2;
+
+    letter-spacing: 4px;
+
+    color: #444;
+
+}
+
+
+.ending-date {
+
+    margin-top: 40px;
+
+    font-size: 8px;
+
+    letter-spacing: 5px;
+
+    color: #555;
+
+}
+
+
+/* =========================================================
+   MUSIC BUTTON
+========================================================= */
+
+.music-button {
+
+    position: fixed;
+
+    right: 35px;
+
+    bottom: 30px;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 11px 15px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    border-radius: 30px;
+
+    background:
+        rgba(10,10,10,.75);
+
+    color: #999;
+
+    backdrop-filter:
+        blur(12px);
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition:
+        all .35s ease;
+
+}
+
+
+.music-button:hover {
+
+    color: #eee;
+
+    border-color:
+        rgba(255,255,255,.4);
+
+}
+
+
+.music-icon {
+
+    font-size: 16px;
+
+}
+
+
+.music-text {
+
+    font-size: 7px;
+
+    letter-spacing: 3px;
+
+}
+
+
+.music-button.playing {
+
+    color: #eee;
+
+}
+
+
+.music-button.playing
+.music-icon {
+
+    animation:
+        musicRotate 2s linear infinite;
+
+}
+
+
+@keyframes musicRotate {
+
+    from {
+
+        transform:
+            rotate(0deg);
+
+    }
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   SCROLL HINT
+========================================================= */
+
+.scroll-hint {
+
+    position: fixed;
+
+    right: 45px;
+
+    top: 50%;
+
+    z-index: 100;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: #444;
+
+    transform:
+        translateY(-50%);
+
+}
+
+
+.scroll-hint span {
+
+    writing-mode:
+        vertical-rl;
+
+    font-size: 7px;
+
+    letter-spacing: 3px;
+
+}
+
+
+.scroll-arrow {
+
+    font-size: 16px;
+
+    animation:
+        scrollArrow 1.7s infinite;
+
+}
+
+
+@keyframes scrollArrow {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+        opacity: .4;
+
+    }
+
+    50% {
+
+        transform:
+            translateY(7px);
+
+        opacity: 1;
+
+    }
+
+}
+
+
+/* =========================================================
+   IMAGE ERROR
+========================================================= */
+
+img.image-error {
+
+    opacity: .25;
+
+    filter:
+        grayscale(1);
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .sidebar {
+
+        width: 250px;
+
+        min-width: 250px;
+
+        padding:
+            40px 30px;
+
+    }
+
+
+    .title-block h1 {
+
+        font-size: 26px;
+
+    }
+
+
+    .scene-copy {
+
+        width: 250px;
+
+        margin-left: 35px;
+
+    }
+
+
+    .scene-copy h2 {
+
+        font-size: 21px;
+
+    }
+
+
+    .photo-composition {
+
+        width: 52%;
+
+    }
+
+
+    .top-label {
+
+        left: 280px;
+
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .sidebar {
+
+        display: none;
+
+    }
+
+
+    .top-label {
+
+        left: 25px;
+
+        right: 25px;
+
+    }
+
+
+    .film-perforations {
+
+        display: none;
+
+    }
+
+
+    .scene-inner {
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        gap: 25px;
+
+    }
+
+
+    .photo-composition {
+
+        width: 82vw;
+
+    }
+
+
+    .scene-copy {
+
+        width: 82vw;
+
+        margin-left: 0;
+
+    }
+
+
+    .scene-copy h2 {
+
+        font-size: 20px;
+
+    }
+
+
+    .scene-copy p {
+
+        display: none;
+
+    }
+
+
+    .scene-meta {
+
+        left: 25px;
+
+        right: 25px;
+
+        top: 50px;
+
+    }
+
+
+    .birthday-stage {
+
+        width: 80vw;
+
+    }
+
+
+    .birthday-copy {
+
+        width: 80vw;
+
+    }
+
+
+    .ending-inner h2 {
+
+        font-size: 30px;
+
+    }
+
+
+    .scroll-hint {
+
+        display: none;
+
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .photo-composition {
+
+        width: 88vw;
+
+    }
+
+
+    .photo-card {
+
+        padding:
+            9px 9px 35px;
+
+    }
+
+
+    .scene-copy {
+
+        width: 88vw;
+
+    }
+
+
+    .scene-copy h2 {
+
+        font-size: 18px;
+
+        line-height: 1.7;
+
+    }
+
+
+    .copy-index {
+
+        margin-bottom: 15px;
+
+    }
+
+
+    .birthday-stage {
+
+        width: 88vw;
+
+    }
+
+
+    .birthday-copy {
+
+        width: 88vw;
+
+    }
+
+
+    .birthday-copy h2 {
+
+        font-size: 18px;
+
+    }
+
+
+    .ending-inner h2 {
+
+        font-size: 26px;
+
+        letter-spacing: 3px;
+
+    }
+
+
+    .ending-main-text {
+
+        font-size: 12px;
+
+    }
+
+
+    .music-button {
+
+        right: 18px;
+
+        bottom: 18px;
+
+    }
+
+}
