@@ -564,3 +564,152 @@ height:100%;
 document.head.appendChild(
 viewerStyle
 );
+document.addEventListener("DOMContentLoaded", function () {
+
+    const music = document.getElementById("bgMusic");
+    const musicButton = document.getElementById("musicButton");
+
+    if (!music) {
+        console.error("没有找到 bgMusic");
+        return;
+    }
+
+    if (!musicButton) {
+        console.error("没有找到 musicButton");
+        return;
+    }
+
+
+    /* =========================
+       音量
+    ========================= */
+
+    music.volume = 0.55;
+
+
+    /* =========================
+       播放音乐
+    ========================= */
+
+    async function playMusic() {
+
+        try {
+
+            await music.play();
+
+            musicButton.classList.add("playing");
+
+            musicButton.innerHTML = "♫ MUSIC";
+
+            console.log("音乐播放成功");
+
+        } catch (error) {
+
+            console.log(
+                "浏览器阻止了自动播放，等待用户点击。"
+            );
+
+        }
+
+    }
+
+
+    /* =========================
+       用户点击页面
+       自动开始音乐
+    ========================= */
+
+    document.addEventListener(
+        "click",
+        function startMusic() {
+
+            playMusic();
+
+            document.removeEventListener(
+                "click",
+                startMusic
+            );
+
+        },
+        {
+            once: true
+        }
+    );
+
+
+    /* =========================
+       音乐按钮
+    ========================= */
+
+    musicButton.addEventListener(
+        "click",
+        async function (event) {
+
+            /*
+              防止按钮点击事件
+              同时触发页面点击
+            */
+
+            event.stopPropagation();
+
+
+            if (music.paused) {
+
+                try {
+
+                    await music.play();
+
+                    musicButton.classList.add(
+                        "playing"
+                    );
+
+                    musicButton.innerHTML =
+                        "♫ MUSIC";
+
+                } catch (error) {
+
+                    console.error(
+                        "音乐播放失败：",
+                        error
+                    );
+
+                }
+
+            } else {
+
+                music.pause();
+
+                musicButton.classList.remove(
+                    "playing"
+                );
+
+                musicButton.innerHTML =
+                    "♪ MUSIC";
+
+            }
+
+        }
+    );
+
+
+    /* =========================
+       音乐加载错误
+    ========================= */
+
+    music.addEventListener(
+        "error",
+        function () {
+
+            console.error(
+                "音乐加载失败！"
+            );
+
+            console.error(
+                "当前音乐路径：",
+                "./assets/music/love-memory.mp3"
+            );
+
+        }
+    );
+
+});
